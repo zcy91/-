@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的团队</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+    <script src="__STATIC__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body class="bag_gray2">
+<if condition="!empty($lists)">
+    <div id="ajax_return">
+        <foreach name="lists" item="v">
+            <div class="my_team_alon p">
+                    <div class="team_head">
+                        <img src="{$v[head_pic]|default="__STATIC__/images/hi.jpg"}"/>
+                    </div>
+                    <div class="team_name_time">
+                        <span class="t_n">{$v[nickname]}</span>
+                        <span class="t_t">加入时间：{:date('Y-m-d',$v[reg_time])}</span>
+                    </div>
+                    <span class="team_price">{$v[distribut_money]}元</span>
+                    <!--<i class="icon-arrow_r"></i>-->
+            </div>
+        </foreach>
+    </div>
+<else/>
+    <!--没有内容时-s-->
+    <div class="comment_con p">
+        <div style="padding:1rem;text-align: center;font-size: .59733rem;color: #777777;"><img src="__STATIC__/images/none.png"/><br /><br />亲，您还没有分销下线！</div>
+    </div>
+    <!--没有内容时-e-->
+</if>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+
+    var  page = 1;
+    /*** ajax 提交表单 查询订单列表结果*/
+    function ajax_sourch_submit()
+    {
+        page += 1;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=Mobile&c=Distribut&a=lower_list&is_ajax=1&p="+page,//+tab,
+//            data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+            success: function(data)
+            {
+                if($.trim(data) == '')
+                    $('#getmore').hide();
+                else{
+                    $("#ajax_return").append(data);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

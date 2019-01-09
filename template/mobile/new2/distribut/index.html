@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>分销中心</title>
+        <link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+		<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="bag_gray">
+		<div class="retails_head">
+			<div class="my_head">
+				<div class="head">
+                    <img src="{$user[head_pic]|default="__STATIC__/images/user68.jpg"}"/>
+                </div>
+				<div class="my_name_in fl">
+					<p class="my_name"> {$user['nickname']}</p>
+					<p class="my_in">{$store.store_name}</p>
+				</div>
+			</div>
+
+			<p class="open_time">开店时间：{$user['reg_time']|date='Y-m-d',###}</p>
+		</div>
+		<div class="mynav_link_list ma-to-8 p">
+			<ul>
+				<li>
+					<a href="{:U('Distribut/order_list')}">
+						<i class="fx-f1"></i>
+						<span>分销订单</span>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Distribut/lower_list')}">
+						<i class="fx-f2"></i>
+						<span>我的团队</span>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Distribut/qr_code', ['user_id'=>$user_id])}">
+						<i class="fx-f3"></i>
+						<span>我的名片</span>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Distribut/rankings',array('order'=>'distribut_money'))}">
+						<i class="fx-f4"></i>
+						<span>分销排行</span>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Distribut/rebate_log')}">
+						<i class="fx-f7"></i>
+						<span>佣金明细</span>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('User/index')}">
+						<i class="fx-f8"></i>
+						<span>会员中心</span>
+					</a>
+				</li>
+				<br style="clear:both" />
+			</ul>
+		</div>
+		<div class="choose_retails_shop ma-to-8 p">
+			<div class="tit_withdrawals">
+				<a href="">
+					<i class="icon-Commission"></i>
+					<span class="mi_cutout">可提现金额 (元)</span>
+					<!--<i class="icon-arrow_r"></i>-->
+				</a>
+			</div>
+			<div class="content_cash">
+				<div class="cashleri p">
+					<div class="sum_money_le">
+						<span>{$user['user_money']|default="0.00"}</span>
+					</div>
+					<div class="detail_money_ri">
+						<p><span class="tit">今日收入(元)</span><span class="cont">{$money.today_money|default="0.00"}</span></p>
+						<p><span class="tit">总销售额(元)</span><span class="cont">￥{$sales_volume}</span></p>
+					</div>
+				</div>
+				<p class="all_comm"><span class="tit">累计获得佣金(元)</span><span class="cont">￥{$money.achieve_money|default="0.00"}</span></p>
+			</div>
+			<div class="w670 ma-to-50">
+
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<include file="public/header" title="店铺设置" />
+<include file="public/header_nav" title="店铺设置" href="javascript:history.back(-1)"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+    <form id="set_store" autocomplete="off" method="post" enctype="multipart/form-data" >
+			<div class="shop_seting">
+				<div class="w670">
+					<div class="alone_row_set">
+						<span>店铺名称：</span>
+						<input type="text" name="store_name" value="{$store.store_name}" />
+					</div>
+					<div class="alone_row_set">
+						<span>真实姓名：</span>
+						<input type="text"  name="true_name" value="{$store.true_name}" />
+					</div>
+					<div class="alone_row_set">
+						<span>手机号：</span>
+						<input type="text" name="mobile" value="{$store.mobile}" onkeyup="value=value.replace(/[^0-9]/g,'')"/>
+					</div>
+					<div class="alone_row_set">
+						<span>QQ：</span>
+						<input type="text"  name="qq" value="{$store.qq}" onkeyup="value=value.replace(/[^0-9]/g,'')">
+					</div>
+				</div>
+			</div>
+			<div class="shop_img_set">
+				<div class="tit_produce">
+					<span class="tit_fon">店铺图片</span>
+				</div>
+				<div class="upload_shopbag">
+                    <label>
+                        <a id="fileList0">
+                            <img src="{$store.store_img|default="__STATIC__/images/m_03.jpg"}"/>
+                        </a>
+                        <input type="file" accept="image/*" name="store_img" onchange="handleFiles(this,0)"  style="display:none" />
+                    <label>
+				</div>
+				<div class="w670 ma-to-50 ma-bo-50">
+					<a class="submit_set" href="javascript:" onClick="verifyForm1();">确认修改</a>
+				</div>
+			</div>
+		</form>
+</body>
+<script>
+    function verifyForm1(){
+        $.ajax({
+            type: "POST",
+            url: "{:U('Mobile/Distribut/set_store')}",
+            data: $('#set_store').serialize(),
+            dataType: "json",
+            error: function () {
+                layer.open({content:"服务器繁忙, 请联系管理员!",time:2});
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    location.href = "{:U('Mobile/Distribut/set_store')}";
+                }
+                $.each(data.result, function (index, item) {
+                    layer.open({content:item,time:2});
+                });
+            }
+        });
+    }
+
+    //上传照片
+    window.URL = window.URL || window.webkitURL;
+    function handleFiles(obj,id) {
+        fileList = document.getElementById("fileList"+id);
+        var files = obj.files;
+        img = new Image();
+        if(window.URL){
+
+            img.src = window.URL.createObjectURL(files[0]); //创建一个object URL，并不是你的本地路径
+            img.onload = function(e) {
+                window.URL.revokeObjectURL(this.src); //图片加载后，释放object URL
+            }
+            if(fileList.firstElementChild){
+                fileList.removeChild(fileList.firstElementChild);
+            }
+            fileList.appendChild(img);
+        }else if(window.FileReader){
+            //opera不支持createObjectURL/revokeObjectURL方法。我们用FileReader对象来处理
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            reader.onload = function(e){
+                img.src = this.result;
+                fileList.appendChild(img);
+            }
+        }else
+        {
+            //ie
+            obj.select();
+            obj.blur();
+            var nfile = document.selection.createRange().text;
+            document.selection.empty();
+            img.src = nfile;
+            img.onload=function(){
+
+            }
+            fileList.appendChild(img);
+        }
+    }
+</script>
+</html>

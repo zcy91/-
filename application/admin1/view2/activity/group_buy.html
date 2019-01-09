@@ -1,0 +1,291 @@
+<include file="public/layout" />
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.config.js"/>
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"/>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=0rQUzlt8RrUxauTYljC8irtSt4K0PsZj"></script>
+<style>
+    #BDMap{
+        height: 350px;
+        width: 800px!important;
+        margin-left: 260px!important;
+    }
+    #tangram-suggestion--TANGRAM__19{
+        margin-top: 20px!important;
+    }
+</style>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>活动管理 - 编辑活动</h3>
+                <h5>网站系统活动详情页</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" method="post">
+        <input type="hidden" id="goods_id" name="goods_id" value="{$info.goods_id}">
+        <input type="hidden" name="id" value="{$info.id}">
+        <input type="hidden" name="act" value="{$act}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>活动标题</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="title" id="title" value="{$info.title}" class="input-txt">
+                    <span class="err" id="err_title"></span>
+                    <p class="notic">请填写活动标题</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>开始时间</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="start_time" name="start_time" value="{$info.start_time}"  class="input-txt">
+                    <span class="err" id="err_start_time"></span>
+                    <p class="notic">活动开始时间</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>结束时间</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="end_time" name="end_time" value="{$info.end_time}" class="input-txt">
+                    <span class="err" id="err_end_time"></span>
+                    <p class="notic">活动结束时间</p>
+                </dd>
+            </dl>
+
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>活动价格</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="price" name="price" value="{$info.price}"  onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="input-txt">
+                    <input type="hidden" id="goods_price" name="goods_price" value="{$info.goods_price}">
+                    <span class="err" id="err_price"></span>
+                    <p class="notic">活动价格,单位：元</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>活动总人数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="goods_num" id="goods_num" value="{$info.goods_num}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="input-txt">
+                    <span class="err" id="err_goods_num"></span>
+                    <p class="notic">此活动最多允许人数</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>虚拟报名人数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="virtual_num" name="virtual_num" value="{$info.virtual_num}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"  class="input-txt">
+                    <span class="err" id="err_virtual_num"></span>
+                    <p class="notic">虚拟已报名人数</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label><em>*</em>活动地点</label>
+                </dt>
+                <dd class="opt">
+                    <div id="r-result" style="display: inline">请输入：<input type="text" id="address" size="20" class="input-txt" value="{$info.address}" style="width:150px;" name="address"/></div>
+                    <span style="">经度：<input id="longitude" value="{$info.longitude}" type="text"  class="input-txt" name="longitude" style="width: 150px!important;"></span>
+                    <span style="">纬度：<input id="latitude" value="{$info.latitude}" type="text"  class="input-txt" name="latitude" style="width: 150px!important;"></span>
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;margin-top: 20px"></div>
+                </dd>
+            </dl>
+            <div id="BDMap"></div>
+            <!--<input id="address" value="">地点-->
+
+            <dl class="row">
+                <dt class="tit">
+                    <label>活动介绍</label>
+                </dt>
+                <dd class="opt">
+                    <textarea placeholder="请输入活动介绍" name="intro" rows="6" class="tarea">{$info.intro}</textarea>
+                    <span class="err" id="err_intro"></span>
+                    <p class="notic">活动描述介绍</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="record_no">活动详情描述</label>
+                </dt>
+                <dd class="opt">
+                    <textarea class="span12 ckeditor" id="goods_content" name="content" title="">{$info.content}</textarea>
+                    <span class="err" id="err_goods_content" style="color:#F00; display:none;"></span>
+                </dd>
+            </dl>
+
+            <div class="bot"><a onclick="verifyForm()" class="ncap-btn-big ncap-btn-green">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/public/static/js/layui/layui.js"></script>
+<script type="text/javascript">
+    // 百度地图API功能
+    // 绘制地图
+    var map = new BMap.Map("BDMap",{enableMapClick: false});
+    // 定位并显示当前地址
+    theLocation();
+    map.enableScrollWheelZoom(); //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
+    var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});// 左上角，添加比例尺
+    var top_left_navigation = new BMap.NavigationControl({type:BMAP_NAVIGATION_CONTROL_SMALL}); //左上角，添加默认缩放平移控件
+    map.addControl(top_left_control);
+    map.addControl(top_left_navigation);
+    var ac = new BMap.Autocomplete( //建立一个自动完成的对象
+        {"input" : "address"
+            ,"location" : map
+        });
+    var c=document.getElementById("address").value;
+    ac.setInputValue(c);
+    ac.addEventListener("onhighlight", function(e) { //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+    var myValue;
+    ac.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+        setPlace();
+    });
+    function G(id) {
+        return document.getElementById(id);
+    }
+    function setPlace(){
+        map.clearOverlays(); //清除地图上所有覆盖物
+        function myFun(){
+            var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+            $("#longitude").val(pp.lng);//设置经纬度
+            $("#latitude").val(pp.lat);
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp)); //添加标注
+        }
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+    // 用经纬度设置地图中心点
+    function theLocation(){
+        if(document.getElementById("longitude").value != "" && document.getElementById("latitude").value != ""){
+            map.clearOverlays();
+            var new_point = new BMap.Point(document.getElementById("longitude").value,document.getElementById("latitude").value);
+            var marker = new BMap.Marker(new_point); // 创建标注
+            map.centerAndZoom(new_point, 15);
+            map.addOverlay(marker); // 将标注添加到地图中
+            map.panTo(new_point);
+        }else{
+            map.centerAndZoom("义乌", 15);
+        }
+    }
+    var geoc = new BMap.Geocoder();
+    map.addEventListener("click", function(e){
+//通过点击百度地图，可以获取到对应的point, 由point的lng、lat属性就可以获取对应的经度纬度
+        var pt = e.point;
+        geoc.getLocation(pt, function(rs){
+//addressComponents对象可以获取到详细的地址信息
+            var addComp = rs.addressComponents;
+            var site = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//将对应的HTML元素设置值
+            $("#address").val(site);
+            $("#longitude").val(pt.lng);
+            $("#latitude").val(pt.lat);
+        });
+    });
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+    })
+    var url="{:url('Admin/Ueditor/index',array('savePath'=>'goods'))}";
+    var ue = UE.getEditor('goods_content',{
+        serverUrl :url,
+        zIndex: 999,
+        initialFrameWidth: "100%", //初化宽度
+        initialFrameHeight: 300, //初化高度
+        focus: false, //初始化时，是否让编辑器获得焦点true或false
+        maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+        pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+        autoHeightEnabled: true
+    });
+    function verifyForm(){
+        $('span.err').hide();
+//        data = $('#handleposition').serialize();
+//        console.log(data);return false
+        $.ajax({
+            type: "POST",
+            url: "{:U('Admin/Activity/groupbuyHandle')}",
+            data: $('#handleposition').serialize(),
+            dataType: "json",
+            error: function () {
+                layer.alert("服务器繁忙, 请联系管理员!");
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {
+                        icon: 1,
+                        time: 1000
+                    }, function(){
+                        location.href = "{:U('Admin/Activity/group_buy_list')}";
+                    });
+                } else {
+                    layer.msg(data.msg, {icon: 2,time: 1000});
+                    $.each(data.result, function (index, item) {
+                        $('#err_' + index).text(item).show();
+                    });
+                }
+            }
+        });
+    }
+    function selectGoods(){
+        var url = "{:U('Activity/search_goods',array('tpl'=>'select_goods'))}";
+        layer.open({
+            type: 2,
+            title: '选择活动',
+            shadeClose: true,
+            shade: 0.2,
+            area: ['75%', '75%'],
+            content: url,
+        });
+    }
+
+    function call_back(goods_id,goods_name,store_count,price){
+        $('#goods_id').val(goods_id);
+        $('#goods_name').val(goods_name);
+        $('#group_num').val(store_count);
+        $('#goods_price').val(price);
+        layer.closeAll('iframe');
+    }
+</script>
+</body>
+</html>

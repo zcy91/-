@@ -1,0 +1,137 @@
+<include file="public/min-header"/>
+<div class="wrapper">
+ <include file="public/breadcrumb"/>
+ <style>#search-form > .form-group{margin-left: 10px;}</style>
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i> 商品列表</h3>
+        </div>
+        <div class="panel-body">
+          <div class="navbar navbar-default">
+              <form action="" id="search-form2" class="navbar-form form-inline" method="post">
+                <div class="form-group">
+                  <select name="cat_id" id="cat_id" class="form-control">
+                    <option value="">所有分类</option>
+                    <foreach name="categoryList" item="v" key="k" >
+                        <option value="{$v['id']}"> {$v['name']}</option>
+			 		</foreach>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <select name="brand_id" id="brand_id" class="form-control">
+                    <option value="">所有品牌</option>
+                        <foreach name="brandList" item="v" key="k" >
+                           <option value="{$v['id']}">{$v['name']}</option>
+						</foreach>
+                  </select>
+                </div>                                           
+
+                <div class="form-group">
+                  <label class="control-label" for="input-order-id">关键词</label>
+                  <div class="input-group">
+                    <input type="text" name="key_word" value="" placeholder="搜索词" id="input-order-id" class="form-control">
+                  </div>
+                </div>                  
+                <!--排序规则-->
+                <button type="submit"  id="button-filter search-order" class="btn btn-primary"><i class="fa fa-search"></i> 筛选</button>
+              </form>
+          </div>
+          <div id="ajax_return">
+			    <div class="table-responsive">
+			        <table class="table table-bordered table-hover">
+			            <thead>
+			            <tr>              
+			                <td class="text-right">
+			                    <a href="javascript:sort('goods_id');">ID</a>
+			                </td>
+			                <td class="text-left">
+			                    <a href="javascript:sort('goods_name');">商品名称</a>
+			                </td>
+			                <td class="text-left">
+			                    <a href="javascript:sort('goods_sn');">销量</a>
+			                </td>                                
+			                <td class="text-left">
+			                    <a href="javascript:sort('cat_id');">分类</a>
+			                </td>                
+			                <td class="text-left">
+			                    <a href="javascript:sort('shop_price');">价格</a>
+			                </td>
+			                <td class="text-left">
+			                    <a href="javascript:void(0);">库存</a>
+			                </td>                
+			                <td class="text-center">
+			                    	 <a href="javascript:void(0);">分成金额</a>
+			                </td>
+                			<td class="text-center">
+			                    	 <a href="javascript:void(0);">占商品价格比</a>
+			                </td>
+			                <td class="text-right">操作</td>
+			            </tr>
+			            </thead>
+			            <tbody>
+			            <volist name="goodsList" id="list">
+			                <tr>
+			                    <td class="text-right">{$list.goods_id}</td>
+			                    <td class="text-left">{$list.goods_name|getSubstr=0,33}</td>
+			                    <td class="text-left">{$list.sales_sum}</td>
+			                    <td class="text-left">{$catList[$list[cat_id]][name]}</td>
+			                    <td class="text-left">{$list.shop_price}</td>
+								<td class="text-left">{$list.store_count}</td>
+								<td class="text-left">{$list.commission}</td>
+								<td class="text-left">{$list['commission']/$list['shop_price']*100|round=2}%</td>
+			                    <td class="text-right">
+			                        <a  target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$list['goods_id']))}" class="btn btn-info" title="查看详情"><i class="fa fa-eye"></i></a>
+			                        <a href="{:U('Admin/Goods/addEditGoods',array('id'=>$list['goods_id']))}" class="btn btn-primary" title="编辑"><i class="fa fa-pencil"></i></a>
+			                        <a href="javascript:void(0);" onclick="del('{$list[goods_id]}')" class="btn btn-danger" title="删除"><i class="fa fa-trash-o"></i></a>
+			                    </td>                        
+			                </tr>
+			            </volist>
+			            </tbody>
+			        </table>
+			    </div>
+			<div class="row">
+			    <div class="col-sm-3 text-left"></div>
+			    <div class="col-sm-9 text-right">{$page}</div>
+			</div>
+           </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row --> 
+  </section>
+  <!-- /.content --> 
+</div>
+<!-- /.content-wrapper --> 
+<script>
+        // 点击排序
+        function sort(field)
+        {
+           $("input[name='orderby1']").val(field);
+           var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';             
+           $("input[name='orderby2']").val(v);
+           ajax_get_table('search-form2',cur_page);
+        }
+        
+        // 删除操作
+        function del(id)
+        {
+            if(!confirm('确定要删除吗?'))
+                return false;
+			$.ajax({
+				url:"/index.php?m=Admin&c=goods&a=delGoods&id="+id,
+				success: function(v){	
+	                                var v =  eval('('+v+')');                                 
+	                                if(v.hasOwnProperty('status') && (v.status == 1))
+	                                        ajax_get_table('search-form2',cur_page);                                                      
+	                                else
+	                                        layer.msg(v.msg, {icon: 2,time: 1000}); //alert(v.msg);
+				}
+			}); 
+	               return false;
+       }
+</script> 
+</body>
+</html>

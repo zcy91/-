@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html data-dpr="1" style="font-size: 44.4632px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>预约服务</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/serviceing/needsever.css">
+    <script type="text/javascript" src="__STATIC__/serviceing/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/serviceing/rem.js"></script><meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<script type="text/javascript" src="__STATIC__/serviceing/layer.js"></script>
+	<link rel="stylesheet" href="__STATIC__/serviceing/layer.css" style="">
+	<script src="__STATIC__/js/layer.js"  type="text/javascript" ></script>
+	<style>
+		.needsever-nav {
+			width: 100%;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			background: #fff;
+		}
+		.needsever-nav a {
+			cursor: pointer;
+			-webkit-appearance: none;
+			width: 100%;
+			background: #d80c18;
+			height: 1.2rem;
+			line-height: 1.2rem;
+			text-align: center;
+			color: #fff;
+			font-size: 0.36rem;
+			float: right;
+		}
+		
+		.sendmessage {
+			width: 100%;
+			height: 0.8rem;
+			font-size: 0.35rem;
+			background: #109BDB;
+			color: #fff;
+			vertical-align: middle;
+			border-radius: 8px;
+			border:0;
+		}
+	</style>
+</head>
+<body style="font-size: 18px;">
+   <div class="needsever">
+   	<!-- 已选服务 -->
+   	   <div class="needsever-box">
+   	   	  <div class="needsever-title">
+   	   	  	 <em></em>
+   	   	  	 <span>已选服务</span>
+   	   	  </div>
+   	   	  <div class="needsever-top">
+   	   	  	  <img src="{$admin.img}">
+   	   	  	  <span><i>{$admin.nickname}</i>提供服务</span>
+   	   	  </div>
+
+   	   	  <div class="needsever-cen">
+   	   	  	 <p></p>
+   	   	  </div>
+   	   	 
+   	   </div>
+   	   <!-- 需求描述 -->
+   	   <div class="needsever-box">
+   	   	   <div class="needsever-title">
+   	   	  	 <em></em>
+   	   	  	 <span>需求描述</span>
+   	   	  </div>
+   	   	  <div class="needsever-txt">
+   	   	  	 <textarea placeholder="还有什么需求" id="remind"></textarea>
+   	   	  </div>
+   	   </div>
+   	   <!-- 联系方式 -->
+   	   <div class="needsever-box">
+   	   	   <div class="needsever-title">
+   	   	  	 <em></em>
+   	   	  	 <span>联系方式</span>
+   	   	  </div>
+		  <p class="needsever-p"><input type="tel" name="mobile" id="gettel" maxlength="11" placeholder="手机号"></p><p>
+   	   	  <!--</p><p class="needsever-p"><input type="number" maxlength="4" id="code" name="code" placeholder="验证码" class="yanzheng"><a href="javascript:void(0)" onclick="javascript:sendMsg()"><button class="sendmessage" type="button" id="btn">发送验证码</button></a></p>-->
+   	   	  
+   	   </div>
+       <!-- 底部导航 -->
+       <div class="needsever-nav">
+       	  <a href="javascript:void(0)" onclick="beginConsultation()">立即预约</a>
+       </div>
+   </div>
+   <script src="__STATIC__/js/layer.js"  type="text/javascript" ></script>
+   <script type="text/javascript">
+	
+	//手机验证码
+	var wait=30;
+	function getcode(){
+		 if (wait == 0){
+			$("#abtn").removeClass("grey");
+			$("#btn").html("重新发送");
+			$("#abtn").attr("href","javascript:sendMsg()");
+			wait = 30;
+		 }else{
+			$("#abtn").addClass("grey");
+			$("#abtn").attr("href","javascript:outcode()");
+			$("#btn").html(wait+"秒后重试");
+			wait--;
+			setTimeout(function() {
+				getcode();
+			},
+			1000);
+		 }
+	}
+	function outcode(){
+		
+		webToast("验证码已发送，请稍后再试！","middle",2000);
+		
+		return false;
+		
+	}
+    //获取验证码
+    function sendcode(o){
+        var type = $(o).attr('type');
+        var send = $("#validate_type_"+type).attr("val");
+        $.ajax({
+            url:'/index.php?m=Home&c=Api&a=send_validate_code&t='+Math.random(),
+            type:'post',
+            dataType:'json',
+            data:{type:type,send:send,scene:3},
+            success:function(res){
+                if(res.status==1){
+                    showErrorMsg(res.msg);
+                    getcode();
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            }
+        })
+    }
+	function sendMsg(){
+		var mobile = $("#gettel").val();
+		var reg = /^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/;
+		if(!reg.test(mobile)){
+            layer.open({content:'手机号码格式错误!',time:2})
+			return false;
+		}
+        $.ajax({
+            url:'/index.php?m=Home&c=Api&a=send_validate_code&t='+Math.random(),
+            type:'post',
+            dataType:'json',
+            data:{type:'mobile',send:mobile,scene:6},
+            success:function(res){
+                if(res.status==1){
+                    showErrorMsg(res.msg);
+                    getcode();
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            }
+        })
+	}
+    function showErrorMsg(msg){
+        layer.open({content:msg,time:2});
+    }
+	function beginConsultation()
+	{
+	    var goods_id = {$goods_id};
+		var code = $("#code").val();//验证码
+		
+		var mobile = $("#gettel").val();//联系方式
+		
+		var admin_id = {$admin_id};//顾问id
+
+		
+		var remind = $("#remind").val();
+		
+		var reg = /^1[3|4|5|7|8][0-9]{9}$/;
+
+		if(!reg.test(mobile)){
+            layer.open({content:'手机号码格式错误!',time:2})
+            return false;
+		}
+		if(!remind){
+			layer.open({content:'请填写您的需求!',time:2})
+            return false;
+		}
+		
+//		if( code == ""){
+//			layer.msg("请填写手机验证码！",{
+//				time: 2000
+//			});
+//			return false;
+//		}
+		$.ajax({
+			url : "/Mobile/Goods/serviceing",
+			type: "POST",
+			dataType : "json",
+			data:{
+				phone:mobile,
+//				code:code,
+				admin_id:admin_id,
+				content:remind,
+				goods_id:goods_id,
+				},
+			success:function(result){	
+				if (result.status=="n") {
+                    showErrorMsg(result.info);
+				}else if( result.status == "y" ) {
+                    showErrorMsg(result.info);
+					setTimeout(function(){							
+						window.location.href="/Mobile/Index/index.html";
+					},3000);					
+				}		
+			}
+		});
+		
+	}
+</script>
+
+</body></html>

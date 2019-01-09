@@ -1,0 +1,279 @@
+<div class="tpshop-tm-hander p">
+    <div class="top-hander p">
+        <div class="[w] pr">
+            <link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
+
+            <div class="fl">
+                <div class="ls-dlzc fl nologin">
+                    <a href="{:U('Home/user/login')}">Hi,请登录</a>
+                    <a class="red" href="{:U('Home/user/reg')}">免费注册</a>
+                </div>
+                <div class="ls-dlzc fl islogin">
+                    <a class="red userinfo" href="{:U('Home/user/index')}"></a>
+                    <a href="{:U('Home/user/logout')}">退出</a>
+                </div>
+                <div class="fl spc" style="margin-top:10px"></div>
+                <div class="sendaddress pr fl">
+                    <if condition="strtolower(ACTION_NAME) neq 'goodsinfo' ">
+                    <!-- 收货地址，物流运费 -start-->
+                        <ul class="list1">
+                            <li class="jaj"><span>配&nbsp;&nbsp;送：</span></li>
+                            <li class="summary-stock though-line" style="margin-top:-1px">
+                                <div class="dd" style="border-right:0px;">
+                                    <div class="store-selector add_cj_p">
+                                        <div class="text" style="width: 150px;background: inherit;top: 3px;border-left: 0"><div></div><b style="top: 2px"></b></div>
+                                        <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </if>
+                    <!--<i class="jt-x"></i>-->
+                    <!-- 收货地址，物流运费 -end-->
+                </div>
+
+
+            </div>
+            <div class="top-ri-header fr">
+                <ul>
+                    <li><a target="_blank" href="{:U('/Home/User/order_list')}">我的订单</a></li>
+                    <li class="spacer"></li>
+                    <li><a target="_blank" href="{:U('/Home/User/account')}">我的积分</a></li>
+                    <li class="spacer"></li>
+                    <li><a target="_blank" href="{:U('/Home/User/coupon')}">我的优惠券</a></li>
+                    <li class="spacer"></li>
+                    <li><a target="_blank" href="{:U('/Home/User/goods_collect')}">我的收藏</a></li>
+                    <li class="spacer"></li>
+                    <li class="hover-ba-navdh">
+                        <div class="nav-dh">
+                            <span>网站导航</span>
+                            <i class="jt-x"></i>
+                            <div class="conta-hv-nav">
+                                <ul>
+                                    <li>
+                                        <a href="/index.php?m=Home&c=Activity&a=group_list">团购</a>
+                                    </li>
+                                    <li>
+                                    <a href="{:U('Home/Activity/flash_sale_list')}">抢购</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="spacer"></li>
+                  
+                </ul>
+            </div>
+            <!--------收货地址，物流运费-开始-------------->
+            <script src="__STATIC__/js/location.js"></script>
+            <!--------收货地址，物流运费--结束-------------->
+        </div>
+    </div>
+    <div class="nav-middan-z p">
+        <div class="header [w]">
+            <div class="ecsc-logo">
+                <a href="{:U('Home/Index/index')}" class="logo"> <img src="{$tpshop_config['shop_info_store_logo']}"></a>
+            </div>
+            <div class="ecsc-join">
+                <adv pid="2" limit="1" item="v">
+                    <a href="{$v.ad_link}" target="_blank"> <img src="{$v[ad_code]}" style="width: 113px;height: 57px;"></a>
+                </adv>
+            </div>
+            <div class="ecsc-search">
+                <form id="sourch_form" name="sourch_form" method="post" action="{:U('Home/Goods/search')}" class="ecsc-search-form">
+                    
+                    <input autocomplete="off" name="q" id="q" type="text" value="{$Request.param.q}" placeholder="搜索关键字" class="ecsc-search-input">
+                    <button type="submit" class="ecsc-search-button" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"><i></i></button>
+                    <div class="candidate p">
+                        <ul id="search_list"></ul>
+                    </div>
+                    <script type="text/javascript">
+                        ;(function($){
+                            $.fn.extend({
+                                donetyping: function(callback,timeout){
+                                    timeout = timeout || 1e3;
+                                    var timeoutReference,
+                                            doneTyping = function(el){
+                                                if (!timeoutReference) return;
+                                                timeoutReference = null;
+                                                callback.call(el);
+                                            };
+                                    return this.each(function(i,el){
+                                        var $el = $(el);
+                                        $el.is(':input') && $el.on('keyup keypress',function(e){
+                                            if (e.type=='keyup' && e.keyCode!=8) return;
+                                            if (timeoutReference) clearTimeout(timeoutReference);
+                                            timeoutReference = setTimeout(function(){
+                                                doneTyping(el);
+                                            }, timeout);
+                                        }).on('blur',function(){
+                                            doneTyping(el);
+                                        });
+                                    });
+                                }
+                            });
+                        })(jQuery);
+
+                        $('.ecsc-search-input').donetyping(function(){
+                            search_key();
+                        },500).focus(function(){
+                            var search_key = $.trim($('#q').val());
+                            if(search_key != ''){
+                                $('.candidate').show();
+                            }
+                        });
+                        $('.candidate').mouseleave(function(){
+                            $(this).hide();
+                        });
+
+                        function searchWord(words){
+                            $('#q').val(words);
+                            $('#sourch_form').submit();
+                        }
+                        function search_key(){
+                            var search_key = $.trim($('#q').val());
+                            if(search_key != ''){
+                                $.ajax({
+                                    type:'post',
+                                    dataType:'json',
+                                    data: {key: search_key},
+                                    url:"{:U('Home/Api/searchKey')}",
+                                    success:function(data){
+                                        if(data.status == 1){
+                                            var html = '';
+                                            $.each(data.result, function (n, value) {
+                                                html += '<li onclick="searchWord(\''+value.keywords+'\');"><div class="search-item">'+value.keywords+'</div><div class="search-count">约'+value.goods_num+'个商品</div></li>';
+                                            });
+                                            html += '<li class="close"><div class="search-count">关闭</div></li>';
+                                            $('#search_list').empty().append(html);
+                                            $('.candidate').show();
+                                        }else{
+                                            $('#search_list').empty();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    </script>
+                </form>
+                <div class="keyword">
+                    <ul>
+                        <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+                            <li>
+                                <a href="{:U('Home/Goods/search',array('q'=>$wd))}" target="_blank">{$wd}</a>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+            </div>
+            <div class="shopingcar-index fr">
+                <div class="u-g-cart fr fixed" id="hd-my-cart">
+                    <a href="{:U('Home/Cart/cart')}">
+                        <p class="c-n fl">我的购物车</p>
+                        <p class="c-num fl">(<span class="count cart_quantity" id="cart_quantity"></span>)
+                            <i class="i-c oh"></i>
+                        </p>
+                    </a>
+                    <div class="u-fn-cart u-mn-cart" id="show_minicart">
+                        <div class="minicartContent" id="minicart">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav p">
+        <div class="[w] p">
+            <div class="categorys home_categorys">
+                <div class="dt">
+                    <a>全部商品分类</a>
+                </div>
+                <!--全部商品分类-s-->
+                <div class="dd">
+                    <div class="cata-nav">
+                        <foreach name="goods_category_tree" item="vo" key="k">
+                            <div class="item fore1">
+                                <div class="item-left">
+                                    <div class="cata-nav-name">
+                                        <h3>
+                                            <a href="{:U('Home/Goods/goodsList',array('id'=>$vo[id]))}" title="{$vo.name}">{$vo.name}</a>
+                                        </h3>
+                                    </div>
+                                    <b>&gt;</b>
+                                </div>
+                                <div class="cata-nav-layer">
+                                    <div class="cata-nav-left">
+                                        <div class="item-channels">
+                                            <div class="channels">
+                                                <a href="" target="_blank">品牌日<i>&gt;</i></a>
+                                                <a href="" target="_blank">家电城<i>&gt;</i></a>
+                                                <a href="" target="_blank">智能生活馆<i>&gt;</i></a>
+                                                <a href="" target="_blank">京东净化馆<i>&gt;</i></a>
+                                                <a href="" target="_blank">京东帮服务店<i>&gt;</i></a>
+                                                <a href="" target="_blank">值得买精选<i>&gt;</i></a>
+                                            </div>
+                                        </div>
+                                        <div class="subitems">
+                                            <dl>
+                                                <foreach name="vo.tmenu" item="v2" key="k2">
+                                                    <dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" target="_blank">{$v2.name}<i>&gt;</i></a></dt>
+                                                    <dd>
+                                                        <foreach name="v2.sub_menu" item="v3">
+                                                            <a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3.name}</a>
+                                                        </foreach>
+                                                    </dd>
+                                                </foreach>
+                                            </dl>
+                                            <div class="item-brands">
+                                                <ul>
+                                                </ul>
+                                            </div>
+                                            <div class="item-promotions">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cata-nav-rigth">
+                                        <div class="item-brands">
+                                            <ul>
+                                                <volist name="brand_list" id="v2" mod="2">
+                                                    <if condition="($v2[cat_id] eq $vo[id]) AND ($v2[is_hot] eq 1)">
+                                                        <li>
+                                                            <a href="{:U('Home/Goods/goodsList',array('brand_id'=>$v2[id]))}" target="_blank" title="{$v2.name}"> <img
+                                                                    src="{$v2.logo}" width="91" height="40"></a>
+                                                        </li>
+                                                    </if>
+                                                </volist>
+                                            </ul>
+                                        </div>
+                                        <div class="item-promotions">
+                                            <!--<//tpshop sql="select * from __PREFIX__goods g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id where start_time lt UNIX_TIMESTAMP(NOW()) and end_time gt UNIX_TIMESTAMP(NOW()) and status = 1 and cat_id = $vo[id] limit 2"-->
+                                            <!--item="promote" key="promote_key">-->
+                                            <!--<a href="{:U('Home/Goods/goodsInfo',array('id'=>$promote[goods_id]))}" target="_blank">-->
+                                            <!--<img width="181" height="120" src="{$promote.goods_id|goods_thum_images=181,120}">-->
+                                            <!--</a>-->
+                                            <!--<///tpshop>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </foreach>
+                    </div>
+                </div>
+                <!--全部商品分类-e-->
+            </div>
+            <div class="navitems" id="nav">
+                <ul>
+                    <li><a  href="{:U('Home/Index/index')}">首页</a></li>
+                    <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
+                        <li <?php  if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='index_modify'";}?>>
+                        <a href="{$v[url]}" <?php  if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected '";} ?> >{$v[name]}</a>
+                        </li>
+                    </tpshop>
+                </ul>
+                <!--<div class="wrap-line" style="width: 72px; left: 20px;">-->
+                <!--<span style="left:15px;"></span>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>

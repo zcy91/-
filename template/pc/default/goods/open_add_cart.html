@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>加入购物车-{$tpshop_config['shop_info_store_title']}</title>
+<meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/detail.css">
+<div id="shopdilog">
+  <div class="ui-popup ui-popup-modal ui-popup-show ui-popup-focus">
+    <div i="dialog" class="ui-dialog2">
+      <div class="ui-dialog-arrow-a"></div>
+      <div class="ui-dialog-arrow-b"></div>
+      <table class="ui-dialog-grid">
+        <tbody>
+          <tr>
+            <td i="body" class="ui-dialog-body">
+              <div i="content" class="ui-dialog-content" id="content:1459321729418" style="width: 450px; height: auto;">
+                <div id="addCartBox" class="collect-public" style="display: block;">
+                  <div class="colect-top"> <i class="colect-icon"></i> 
+                    <!--<i class="colect-fail"></i>-->
+                    <div class="conect-title">
+                      <span>添加成功</span>
+                      <div class="add-cart-btn fn-clear"> 
+                          <a href="javascript:;" onclick="javascript:parent.layer.closeAll('iframe');" class="ui-button ui-button-f80 fl go-shopping">继续购物</a> 
+                          <a href="{:U('Home/Cart/index')}" target="_parent" class="ui-button ui-button-122 fl">去购物车结算</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="watch">
+                    <span>热卖产品：</span>
+                    <ul class="fn-clear buy-list">
+                    <tpshop sql="select * from `__PREFIX__goods` where  is_recommend = 1 limit 4" item="v" key="k">
+                      <li>
+                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id],'first_leader'=>$_COOKIE['user_id']))}" class="watch-img" target="_parent"><img src="{$v.goods_id|goods_thum_images=200,200}" /></a>
+                        <h4 ><a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id],'first_leader'=>$_COOKIE['user_id']))}" target="_parent" style="overflow: hidden;text-overflow: ellipsis">{$v['goods_name']}</a></h4>
+                        <p>
+                          <if condition="$v['exchange_integral'] gt 0">
+                            <if condition="($v[shop_price]-$v['exchange_integral']/$point_rate) gt 0">
+                              <q class="fn-rmb">¥</q>
+                              <strong class="fn-rmb-num" style="font-size: 9px"><php> echo number_format($v[shop_price]-$v['exchange_integral']/$point_rate,2);</php>+{$v['exchange_integral']}积分</strong>
+                              <else />
+                              <strong class="fn-rmb-num">{$v['exchange_integral']}积分</strong>
+                            </if>
+                            <else/>
+                            <q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$v[shop_price]}</strong>
+                          </if>
+                        </p>
+                      </li>
+                     </tpshop>  
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

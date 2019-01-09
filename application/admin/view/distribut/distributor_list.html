@@ -1,0 +1,85 @@
+<include file="public/min-header"/>
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<div class="wrapper">
+  <include file="public/breadcrumb"/>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i>分销商列表</h3>
+        </div>
+        <div class="panel-body">    
+		<div class="navbar navbar-default">                    
+                <form id="search-form2" class="navbar-form form-inline"  method="post" action="">
+                <div class="form-group">                
+                  <label for="input-order-id" class="control-label">用户ID:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="user_id" placeholder="用户id" value="" name="user_id" />
+                  </div>                  
+                  <label for="input-order-id" class="control-label">用户昵称:</label>                
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="input-order-id" placeholder="用户昵称" value="" name="nickname" />                    
+                  </div>        
+                </div>
+                <div class="form-group">    
+                    <button class="btn btn-primary" id="button-filter search-order" type="submit"><i class="fa fa-search"></i> 筛选</button>    
+                </div>                                 
+                </form>    
+          </div>                        
+          <div id="ajax_return">                  
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="sorting text-left">编号</th>  
+                                <th class="sorting text-left">微信昵称</th>                                
+                                <th class="sorting text-left">可用资金</th>
+                                <th class="sorting text-left">冻结资金</th>
+                                <th class="sorting text-left">总分成金额</th>
+                                <th class="sorting text-left">下线会员总数</th>
+                                <th class="sorting text-left">一级会员</th>
+                                <th class="sorting text-left">二级会员</th>
+                                <th class="sorting text-left">三级会员</th>
+                                <th class="sorting text-left">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="user_list" id="v">
+                                <tr>
+                                    <td class="text-left">{$v.user_id}</td> 
+                                    <td class="text-left">{$v.nickname}</td>
+                                    <td class="text-left">{$v.user_money}</td>
+                                    <td class="text-left">{$v.frozen_money}</td>
+                                    <td class="text-left">{$v.distribut_money}</td>
+                                    <td class="text-left">{$v.lower_sum}</td>
+                                    <td class="text-left">{$v.fisrt_leader}</td>                                    
+                                    <td class="text-left">{$v.second_leader}</td>                                    
+                                    <td class="text-left">{$v.third_leader}</td>
+                                    <td class="text-left"><a href="{:U('Admin/user/detail',array('id'=>$v[user_id]))}">查看</a></td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                <div class="row">
+                    <div class="col-sm-6 text-left"></div>
+                    <div class="col-sm-6 text-right">{$page}</div>
+                </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row --> 
+  </section>
+  <!-- /.content --> 
+</div>
+<!-- /.content-wrapper --> 
+<script>
+
+</script>
+</body>
+</html>

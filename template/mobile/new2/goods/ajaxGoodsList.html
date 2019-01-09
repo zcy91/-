@@ -1,0 +1,42 @@
+<foreach name="goods_list" item="vo" key="k">
+    <div class="orderlistshpop p">
+        <div class="maleri30">
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id],'first_leader'=>$_COOKIE['user_id']))}" class="item">
+                <div class="sc_list se_sclist">
+                    <div class="shopimg fl">
+                        <img src="{$vo.goods_id|goods_thum_images=400,400}">
+                    </div>
+                    <div class="deleshow fr">
+                        <div class="deletes">
+                            <span class="similar-product-text fl" style="display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{$vo.goods_name}</span>
+                        </div>
+                        <div class="prices" style="margin-bottom: .2rem;float: unset">
+                            <p class="sc_pri fl">
+                            <if condition="$vo['exchange_integral'] gt 0">
+                                <if condition="($vo[shop_price]-$vo['exchange_integral']/$point_rate) gt 0">
+                                    <span class="text13 colf22e01">¥</span>
+                                    <span class="big-price"><php> echo number_format($vo[shop_price]-$vo['exchange_integral']/$point_rate,2)</php> + {$vo['exchange_integral']}积分</span>
+                                    <else />
+                                    <span class="big-price" style="margin-bottom: .2rem">{$vo['exchange_integral']}积分</span>
+                                </if>
+                                <else/>
+                                <span class="text13 colf22e01">¥</span>
+                                <span class="big-price">{$vo[shop_price]}元</span>
+                            </if>
+                        </div>
+                        <!--<if condition="$vo['market_price'] gt 0">-->
+                            <!--<p style="color: #999999;font-size: 0.5rem">-->
+                                <!--<span>专柜价：</span>-->
+                                <!--<span class="though-line" style="font-size: 0.55rem"><em>￥</em>{$vo.market_price}</span>-->
+                            <!--</p>-->
+                        <!--</if>-->
+                        <p class="weight" style="float: unset">
+                            <span style="float: left"><span>销量</span><span class="red">{$vo[sales_sum]}</span>件</span>
+                            <span style="margin-right: 2rem;float: right">{$vo[comment_count]}条评价</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</foreach>

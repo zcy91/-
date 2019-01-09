@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html data-dpr="1" style="font-size: 43.5789px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>客户评价</title>
+    <meta name="Keywords" content="客户评价">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/comment/comment.css">
+    <script type="text/javascript" src="__STATIC__/comment/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/comment/rem.js"></script><meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/service/css.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/service/already.css">
+    <script type="text/javascript" src="__STATIC__/comment/layer.js"></script>
+    <link rel="stylesheet" href="__STATIC__/comment/layer.css" id="layui_layer_skinlayercss" style="">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/service/alert.css">
+    <style type="text/css">
+        .web_toast {font-size: 0.6rem;}
+    </style>
+</head>
+<body style="font-size: 18px;">
+<div class="comment">
+    <div class="tctop">
+        <img class="tctop_img1" src="__STATIC__/comment/back.png" onclick="javascript:history.go(-1);" alt="返回">
+        <span>全部评价</span>
+        <a href="http://wx.sikai.com/" title="首页"><img class="tctop_img2" src="__STATIC__/comment/home2.png" alt="首页"></a>
+    </div>
+
+    <!-- 评论区 -->
+    <div class="comment-boxs k-wyk-prodertails ">
+        <div class="prodertails_comment">
+        <volist name="comment" id="item">
+        <div class="comment_single">
+            <div class="single_username">
+                <div class="username_l">
+                    <p class="l_text ng-binding">{$item.username}</p>
+                    <ul>
+                        <if condition="$item.service_rank eq 1">
+                            <li class="">
+                                <span></span>
+                            </li>
+                            <elseif condition="$item.service_rank eq 2">
+                                <li class="">
+                                    <span></span>
+                                </li>
+                                <li class="">
+                                    <span></span>
+                                </li>
+                                <elseif condition="$item.service_rank eq 3">
+                                    <li class="">
+                                        <span></span>
+                                    </li>
+                                    <li class="">
+                                        <span></span>
+                                    </li>
+                                    <li class="">
+                                        <span></span>
+                                    </li>
+                                    <elseif condition="$item.service_rank eq 4">
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <else/>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                                        <li class="">
+                                            <span></span>
+                                        </li>
+                        </if>
+
+                    </ul>
+                </div>
+                <p class="username_r ng-binding">{$item.add_time|date='Y-m-d H:i',###}</p>
+            </div>
+            <p class="single_text ng-binding">{$item.content|htmlspecialchars_decode}</p>
+        </div>
+        </volist>
+   
+    </div>
+</div>
+<script type="text/javascript">
+    /*$('.tel').each(function(){
+       var tel = $(this).html();
+       var mtel = tel.substr(0, 3) + '****' + tel.substr(7);
+       $(this).text(mtel);
+    })*/
+
+    var admin_id={$admin_id};
+
+    var page= 2; //设置当前页数
+
+    var lock= 0;
+    var goods_id = {$goods_id};
+//    $(window).scroll(function(){
+//
+//        if(lock){
+//            return false;
+//        }
+//
+//        var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());//浏览器的高度加上滚动条的高度
+//
+//        if( totalheight >= $(document).height() ){
+//            lock=1;
+//            $.post("/Goods/allcomment",{page:page,admin_id:admin_id,goods_id:goods_id},function(data){
+//                if( data.status == "y" ){
+//                    $(".comment-boxs").append(data.str);
+//                    page++;
+//                    lock=1;
+//                }else{
+//
+//                    //webToast(data.info,"middle",2000);
+//
+//                    layer.msg(data.info,{
+//                        time: 2000
+//                    });
+//
+//                    return false;
+//
+//                }
+//            },"json");
+//        }
+//    });
+</script>
+
+</body></html>

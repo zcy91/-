@@ -1,0 +1,39 @@
+<foreach name="hot_goods" item="vo">
+    <li>
+        <div class="similer-product products_kuang" style="float:none;">
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id],'first_leader'=>$_COOKIE['user_id']))}" title="{$vo.goods_name}">
+                <img src="{$vo[goods_id]|goods_thum_images=400,400}"/>
+                <span class="similar-product-text" style="white-space: nowrap;display: block;overflow: hidden;text-overflow: ellipsis">{$vo[goods_name]}</span>
+            </a>
+            <span class="similar-product-price">
+                <if condition="$vo['exchange_integral'] gt 0">
+                    <if condition="($vo[shop_price]-$vo['exchange_integral']/$point_rate) gt 0">
+                        <span class="text13 colf22e01" style="font-size: .55rem">¥</span>
+                        <span class="big-price"><php> echo number_format($vo[shop_price]-$vo['exchange_integral']/$point_rate,2);</php> + {$vo['exchange_integral']}积分</span>
+                        <else />
+                        <span class="big-price">{$vo['exchange_integral']}积分</span>
+                    </if>
+                    <else/>
+                    <span class="text13 colf22e01" style="font-size: .55rem">¥</span>
+                    <span class="big-price">
+                        <if condition="$vo['shop_price'] gt 0">
+                            {$vo[shop_price]}
+                            <else/>
+                            预约报价
+                        </if>
+
+                    </span>
+                </if>
+                <if condition="$vo['market_price'] gt 0">
+                <div style="color: #999999;font-size: 0.4rem">
+                    <!--<span>专柜价：</span>-->
+                    <!--<span class="though-line" style="font-size: 0.45rem"><em>￥</em>{$vo.market_price}</span>-->
+                </div>
+                    <else/>
+                     <!--<div style="color: #999999;font-size: 0.4rem">-->
+                    <!--</div>-->
+                </if>
+                </span>
+        </div>
+    </li>
+</foreach>

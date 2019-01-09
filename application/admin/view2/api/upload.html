@@ -1,0 +1,74 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+	<!--<meta charset="UTF-8">-->
+	<!--<title></title>-->
+	<!--<script src="__PUBLIC__/upload/dist/cos-js-sdk-v5.js" type="text/javascript" charset="utf-8"></script>-->
+	<!--<script src="__PUBLIC__/js/jquery-1.8.2.min.js" type="text/javascript" charset="utf-8"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<input id="fileSelector" type="file" name="filename">-->
+<!--<div id="tab" class="tab">-->
+	<!--<table>-->
+		<!--<thead>-->
+		<!--<tr><td>名称</td><td>大小</td></tr>-->
+		<!--</thead>-->
+		<!--<tbody id="tb">-->
+		<!--</tbody>-->
+	<!--</table>-->
+<!--</div>-->
+<!--<input id="submitBtn" type="button" onclick="upload()" value="提交">-->
+<!--</body>-->
+<!--<script type="text/javascript">-->
+    <!--var selectedFile;-->
+    <!--var filename;-->
+    <!--var arrfilename = new Array();-->
+    <!--var arrfile = new Array();-->
+    <!--$("#fileSelector").change(function(){-->
+        <!--/* 选择文件操作*/-->
+        <!--selectedFile = document.getElementById('fileSelector').files[0];-->
+        <!--/* 拿到文件名字*/-->
+        <!--filename = selectedFile.name;-->
+        <!--/* 拿到文件大小*/-->
+        <!--filesize = selectedFile.size;-->
+        <!--/* 将文件名字和文件本身存进数组*/-->
+        <!--arrfilename.push(filename);-->
+        <!--arrfile.push(selectedFile);-->
+        <!--/* 将文件和大小一一罗列出来*/-->
+        <!--var tb = '<tr><td>'+filename+'</td><td>'+filesize+'</td></tr>';-->
+        <!--//console.log(count);-->
+        <!--$("#tb").append(tb);-->
+    <!--});-->
+    <!--function upload(){-->
+        <!--/* 遍历数组*/-->
+        <!--for(var i = 0;i<=arrfilename.length;i++){-->
+            <!--alert(arrfilename[i])-->
+            <!--var cos = new COS({-->
+                <!--SecretId: 'AKIDypTzuM5TcrxDeOwpHEBr6UaeXFj52MYh',-->
+                <!--SecretKey: 'VddS7YBPFqFy15v465rSFuJ52oLmyFMD',-->
+            <!--})-->
+            <!--cos.putObject({-->
+                <!--Bucket: 'text-1257107641',-->
+                <!--Region: 'ap-shanghai',-->
+                <!--/* 名字获取数组下标*/-->
+                <!--Key: arrfilename[i],-->
+                <!--StorageClass: 'STANDARD',-->
+                <!--Body: arrfile[i], // 上传文件对象(通过下标获取)-->
+                <!--onProgress: function(progressData) {-->
+                    <!--console.log(JSON.stringify(progressData));-->
+                <!--}-->
+            <!--}, function(err, data) {-->
+                <!--console.log(err || data || - Url);-->
+                <!--console.log("URL是："+data);-->
+            <!--});-->
+        <!--}-->
+    <!--}-->
+<!--</script>-->
+<!--</html>-->
+<form method="post" action="upload.html" enctype="multipart/form-data">
+	<input id="fileSelector" type="file" name="file">
+	<input type="submit" value="提交">
+</form>
+
+

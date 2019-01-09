@@ -1,0 +1,214 @@
+<link rel="stylesheet" href="/public/static/dist/photoswipe.css">
+<link rel="stylesheet" href="/public/static/dist/default-skin/default-skin.css">
+<!--<script src="/public/static/dist/photoswipe.js"></script>-->
+<script src="/public/static/dist/photoswipe-ui-default.min.js"></script>
+<link rel="stylesheet" href="/public/static/dist/css/index.css">
+<style>
+    div.ps-uilayer {
+        /* background: #fff; */
+        cursor: pointer;
+    }
+
+</style>
+
+<if condition="$count gt 0">
+  <div class="assess-flat " id="comList">
+     <foreach name="commentlist" item="v" key="k">
+            <span class="assess-wrapper"  >
+                <div class="assess-top">
+                    <if condition="$v['is_anonymous'] eq 1">
+                        <span class="user-portrait"><img src="__STATIC__/images/user68.jpg"></span>
+                        <span class="user-name">匿名用户</span>
+                    <else />
+                        <span class="user-portrait"><img src="{$v['head_pic']|default='__STATIC__/images/user68.jpg'}"></span>
+                        <span class="user-name">{$v['username']}</span>
+                    </if>
+                    <span class="assess-date">{$v.add_time|date='Y-m-d H:i',###}</span>
+                </div>
+                <div class="assess-bottom">
+                    <span class="comment-item-star">
+                        <span class="real-star comment-stars-width{$v.service_rank}"></span>
+                    </span>
+                    <p class="assess-content">{$v['content']|htmlspecialchars_decode}</p>
+                    <div class="product-img-module">
+                        <!--<a class="J_ping">-->
+                            <ul class="jd-slider-container gallery">
+                                <foreach name="v['img']" key="key" item="v2">
+                                    <li class="jd-slider-item product-imgs-li" style="width: 31.5%;height: 5rem;margin-left: 0.2rem;margin-bottom: .2rem">
+                                        <a href="{$v2}" style="width: 100%;height: 100%;">
+                                             <div class="image-container" style="background-image: url({$v2});height: 100%;width: 100%;background-position:center center;background-repeat: no-repeat;background-size: cover" ></div>
+                                            <img src="{$v2}" width="100px" heigth="100px" style="display: none">
+                                        </a>
+
+                                    </li>
+                                </foreach>
+                            </ul>
+                        <!--</a>-->
+                    </div>
+                    <!--商家回复-s-->
+                    <foreach name="replyList[$v['comment_id']]" item="reply" key="k">
+                            <p class="pay-date">{$reply['username']}回复：{$reply['content']}</p>
+                    </foreach>
+                    <!--商家回复-e-->
+                    <!--<p class="product-type">颜色：ML574VB 型号：38/235MM</p>-->
+                </div>
+            </span>
+             <div class="assess-btns-box">
+                 <div class="assess-btns">
+                     <a class="assess-like-btn" id="{$v[comment_id]}" data-comment-id="{$v['comment_id']}" onclick="zan(this);">
+                         <i class="assess-btns-icon btn-like-icon like-grey"></i>
+                         <span class="assess-btns-num" id="span_zan_{$v['comment_id']}" data="0">{$v['zan_num']}</span>
+                         <i class="like">+1</i>
+                     </a>
+                     <a class="assess-reply-btn" id="f135e04a-ca94-4f00-a0db-3a30ac206ceb_0">
+                         <i class="no-assess-btns-icon btn-reply-icon"></i>
+                         <span class="assess-btns-num" id="comment_id{$v[comment_id]}">
+{:count($replyList[$v['comment_id']])}
+                         </span>
+                     </a>
+                 </div>
+             </div>
+     </foreach>
+    </div>
+<else/>
+     <script>
+         ajax_sourch_submit_hide();
+     </script>
+    <!--没有内容时-s-->
+    <div class="comment_con p">
+        <div class="none"><img src="__STATIC__/images/none.png"/><br /><br />亲，此处还没有内容哦~</div>
+    </div>
+    <!--没有内容时-e-->
+</if>
+ <if condition="($count gt $current_count) AND (count($commentlist) eq $page_count)">
+     <div class="getmore" style="font-size:.32rem;text-align:center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+         <a href="javascript:void(0)" onClick="ajaxSourchSubmit();">点击加载更多</a>
+     </div>
+     <elseif condition="($count elt $current_count AND $count gt 0)" />
+        <div class="score enkecor">已显示完所有评论</div>
+     <else />
+ </if>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <!--<button class="pswp__button pswp__button&#45;&#45;share" title="Share"></button>-->
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<link href="__STATIC__/css/photoswipe.css" rel="stylesheet" type="text/css">
+<script src="__STATIC__/js/klass.min.js"></script>
+<script src="__STATIC__/js/photoswipe.js"></script>
+<script type="text/javascript">
+    //jQuery 版,对应的js文件也需要变化
+    // 示例详见examples/02-jquery.html
+    $(document).ready(function(){
+        // 此处的对象，就是PhotoSwipe实例，可以使用相应的方法,例如 show(0),hide()等.
+         myPhotoSwipe = $(".gallery a").photoSwipe({ enableMouseWheel: false , enableKeyboard: false });
+
+    });
+
+     var page = {$p};
+     function ajaxSourchSubmit() {
+         page += 1;
+         $.ajax({
+             type: "GET",
+             url: "{:U('Mobile/Goods/ajaxComment',array('goods_id'=>$goods_id,'commentType'=>$commentType),'')}"+"/p/" + page,
+             success: function (data) {
+                 $('.getmore').hide();
+                 if ($.trim(data) != ''){
+                     $("#comList").append(data);
+                 }
+             }
+         });
+     }
+     function  ajax_sourch_submit_hide(){
+         $('.getmore').hide();
+     }
+
+     //点赞
+     function hde(){
+         setTimeout(function(){
+             $('.alert').hide();
+         },1200)
+     }
+
+     /**
+      * 点赞ajax
+      * dyr
+      * @param obj
+      */
+     function zan(obj) {
+         var user_id = getCookie('user_id');
+         if (user_id == '') {
+             layer.open({content:'请先登录',time:2});
+             return ;
+         }
+         var comment_id = $(obj).attr('data-comment-id');
+         var zan_num = parseInt($("#span_zan_" + comment_id).text());
+         $.ajax({
+             type: "POST",
+             data: {comment_id: comment_id},
+             dataType: 'json',
+             url: "/index.php?m=Mobile&c=User&a=ajaxZan",
+             success: function (res) {
+                 if (res.success) {
+                     $("#span_zan_" + comment_id).text(zan_num + 1);
+                     $('#'+comment_id).find('.like').addClass('like_ani'); //显示点赞效果
+                     $('#'+comment_id).find('.btn-like-icon').addClass('like-red');
+                 } else {
+                     $('.alert').show(200);
+                     $('.alert').animate({opacity:"1"},600,hde());
+                 }
+             },
+             error : function(res) {
+                 if( res.status == "200"){ // 兼容调试时301/302重定向导致触发error的问题
+                     layer.open({content:'请先登录!',time:2})
+                     return;
+                 }
+                 layer.open({content:'请求失败!',time:2})
+                 return;
+             }
+         });
+     }
+//     function clickful(id){
+//         if($('#'+id).find('.btn-like-icon').hasClass('like-red')){
+//             $('.alert').show(200);
+//             $('.alert').animate({opacity:"1"},600,hde());
+//             return false;
+//         }
+//         var likenum =$('#support'+id).text(); //获取当前点赞数
+//         ++likenum;     //点赞加1
+//         $('#'+id).find('.like').addClass('like_ani'); //显示点赞效果
+//         $('#'+id).find('.btn-like-icon').addClass('like-red');
+//         $('#support'+id).text(likenum);
+//     };
+ </script>

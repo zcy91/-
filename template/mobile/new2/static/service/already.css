@@ -1,0 +1,342 @@
+*{padding: 0;margin: 0;list-style-type: none;}
+body{
+	min-width: 320px;
+	max-width: 640px;
+	font-family: 'Helvetica Neue',Helvetica,sans-serif;
+	margin: 0 auto;
+	background-color: #ffffff;
+}
+.k-wyk-prodertails {
+    background-color: #f3f6f6;
+    height: 100%;
+}
+.k-wyk-prodertails .prodertails_head {
+    text-align: center;
+    background-image: url(http://oss.sikai.com/Public/Sikai/Common/images/product/proder_headbg.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.k-wyk-prodertails .prodertails_head img {
+    width: 2.13333rem;
+    height: 2.13333rem;
+    margin-top: .8rem;
+    -moz-border-radius: 1.06667rem;
+    -webkit-border-radius: 1.06667rem;
+    border-radius: 1.06667rem;
+}
+.k-wyk-prodertails .prodertails_head .head_name {
+    font-size: 0.46667rem;
+    margin-top: 0.42667rem;
+    margin-bottom: .26667rem;
+    color: #fff;
+    font-weight: 700;
+}
+.k-wyk-prodertails .prodertails_head .head_marks {
+    font-size: 0;
+    padding-bottom: 0.8rem;
+}
+.k-wyk-prodertails .prodertails_head .head_marks p {
+    font-size: 0.26rem;
+    color: #fff;
+    display: inline-block;
+    margin-right: 0.2rem;
+}
+.k-wyk-prodertails .prodertails_location {
+    font-size: 0;
+    padding: 0.5rem .3rem;
+    text-align: center;
+    background-color: #fff;
+}
+.k-wyk-prodertails .prodertails_location img {
+    width: 0.2rem;
+    height: auto;
+    display: inline-block;
+    margin-right: 0.1rem;
+}
+.k-wyk-prodertails .prodertails_location p {
+    font-size: 0.26rem;
+    display: inline-block;
+    color: #666;
+    margin-right: 0.1rem;
+}
+.k-wyk-prodertails .prodertails_location span {
+    background: #666;
+    width: 1px;
+    height: 0.2rem;
+    display: inline-block;
+    margin-right: 0.1rem;
+}
+.k-wyk-prodertails .prodertails_label {
+    font-size: 0;
+    background-color: #fff;
+    text-align: center;
+}
+.k-wyk-prodertails .prodertails_label .label_text {
+    font-size: 0.3rem;
+    width: 2.4rem;
+    line-height: 0.5rem;
+    border: 1.1px solid #d80c18;
+    -moz-border-radius: .22667rem;
+    -webkit-border-radius: .22667rem;
+    border-radius: 0.2rem;
+    margin-bottom: 0.2rem;
+    display: inline-block;
+    color: #757575;
+    height: 0.5rem;
+}
+.k-wyk-prodertails .prodertails_singular {
+    border-top: 1.1px solid #d9d9d9;
+    border-bottom: 1.1px solid #d9d9d9;
+    font-size: 0;
+    background-color: #fff;
+    position: relative;
+}
+.k-wyk-prodertails .prodertails_singular p {
+    font-size: 0.38rem;
+    width: 50%;
+    line-height: 1.17333rem;
+    color: #b5b5b5;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+.k-wyk-prodertails .prodertails_singular p span {
+    color: #f78034;
+    font-weight: 700;
+    margin-left: .29333rem;
+}
+.k-wyk-prodertails .prodertails_singular .singular_line {
+    background-color: #e0e0e0;
+    width: 1px;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+}
+.k-wyk-prodertails .prodertails_select {
+    margin-top: 0.26rem;
+    border-top: 1.1px solid #d9d9d9;
+    border-bottom: 1.1px solid #d9d9d9;
+    background-color: #fff;
+    height: auto;
+}
+.k-wyk-prodertails .prodertails_select .select_already {
+}
+.k-wyk-prodertails .prodertails_select .select_already .already_block {
+    margin-left: 0.3rem;
+    border-bottom: 1.1px solid #d9d9d9;
+    padding-bottom: 0.4rem;
+}
+.k-wyk-prodertails .prodertails_select .select_already .already_block .block_title {
+    font-size: 0.32rem;
+    margin-top: 0.38rem;
+    margin-bottom: 0.13rem;
+    color: #666;
+}
+.k-wyk-prodertails .prodertails_select .select_already .already_block .block_text {
+    font-size: 0.28rem;
+    margin-top: 0.13rem;
+    border: 1.1px solid #fa444e;
+    line-height: 0.64rem;
+    padding: 0 0.4rem;
+    display: inline-block;
+    color: #666;
+}
+.k-wyk-prodertails .prodertails_select .select_already .already_more .more_t {
+    font-size: 0.32rem;
+    line-height: 1.09333rem;
+    margin-left: .29333rem;
+    width: 8.2rem;
+    color: #666;
+    display: inline-block;
+    vertical-align: middle;
+}
+.k-wyk-prodertails .prodertails_select .select_already .already_more .more_arrow {
+    vertical-align: middle;
+    margin-left: 0.29rem;
+    background-image: url(http://oss.sikai.com/Public/Sikai/Common/images/already/right_arrow.png);
+    background-size: cover;
+    height: 0.35rem;
+    width: 0.18rem;
+    display: inline-block;
+}
+.k-wyk-prodertails .prodertails_comment {
+    padding: .53333rem 0;
+    border-top: 1.1px solid #d9d9d9;
+    border-bottom: 1.1px solid #d9d9d9;
+    margin-top: 0.26667rem;
+    background-color: #fff;
+}
+.k-wyk-prodertails .prodertails_comment .comment_title {
+    margin-left:  0.3rem;
+    overflow: hidden;
+}
+.k-wyk-prodertails .prodertails_comment .comment_title .title_user {
+    font-size: 0.34rem;
+    color: #333;
+    display: inline-block;
+    float: left;
+}
+.k-wyk-prodertails .prodertails_comment .comment_title .title_user span {
+    font-size: 0.26rem;
+    margin-left: .13333rem;
+    color: #999;
+}
+.k-wyk-prodertails .prodertails_comment .comment_title .title_good {
+    font-size: 0.34rem;
+    display: inline-block;
+    margin-left: 0.29rem;
+    text-align: right;
+    color: #333;
+    float:  right;
+    margin-right: 4%;
+}
+.k-wyk-prodertails .prodertails_comment .comment_title .title_good span {
+    margin-left: .13333rem;
+    color: #fa444e;
+}
+.k-wyk-prodertails .prodertails_comment .comment_label {
+    font-size: 0;
+    padding-bottom: .4rem;
+    margin: 0.5rem 0 0.3rem;
+    margin-left: 0.3rem;
+}
+.k-wyk-prodertails .prodertails_comment .comment_label p {
+    color: #666;
+    font-size: 0.29rem;
+    width: 28%;
+    border: 1.1px solid #f78034;
+    line-height: 0.64rem;
+    display: inline-block;
+    text-align: center;
+    margin-right: 3%;
+    margin-top: 0.2rem;
+    padding: 1px 2px;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single {
+    border-top: 1.1px solid #d9d9d9;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username {
+    font-size: 0;
+    margin: 0.5rem 0 0.46rem 0.3rem;
+    overflow: hidden;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username .username_l {
+    display: inline-block;
+    font-size: 0;
+    float: left;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username .username_l .l_text {
+    font-size: .29333rem;
+    color: #666;
+    display: inline-block;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username .username_l ul {
+    margin-left: .26667rem;
+    list-style: none;
+    overflow: hidden;
+    display: inline-block;
+    font-size: 0;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username .username_l ul li {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    overflow: hidden;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username .username_l ul li span {
+    width: .29333rem;
+    height: .29333rem;
+    background-image: url(http://oss.sikai.com/Public/Sikai/Common/images/already/start_sc.png);
+    background-size: cover;
+    display: inline-block;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_username .username_r {
+    font-size: .29333rem;
+    text-align: right;
+    color: #999;
+    display: inline-block;
+    float: right;
+    padding-right: 4%;
+}
+.k-wyk-prodertails .prodertails_comment .comment_single .single_text {
+    font-size: 0.32rem;
+    line-height: .45333rem;
+    color: #333;
+    margin: 0.3rem 0 0.3rem 0.3rem;
+}
+.k-wyk-prodertails .prodertails_comment .comment_seebtn {
+	display: inline-block;
+	width: 28%;
+	height: 0.54rem;
+    line-height: 0.54rem;
+    text-align: center;
+    font-size: 0.32rem;
+    color: #d80c18;
+    margin-left: 36%;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    border: 1.1px solid #d80c18;
+    -moz-border-radius: .06667rem;
+    -webkit-border-radius: .06667rem;
+    border-radius: 0.1rem;    
+}
+.k-wyk-prodertails .prodertails_bottom {
+    font-size: 0;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    border-top: 1.1px solid #d9d9d9;
+    width: 100%;
+    height: 1.2rem;
+    min-width: 320px;
+    max-width: 640px;
+    background: #fff;
+}
+.k-wyk-prodertails .prodertails_bottom .bottom_car {
+    width: 24%;
+    height: 1.2rem;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #fff;
+    text-align: center;
+}
+.k-wyk-prodertails .prodertails_bottom .bottom_car img {
+    width: 0.5rem;
+    margin-top: 0.1rem;
+    height: auto;
+}
+.k-wyk-prodertails .prodertails_bottom .bottom_car p {
+    color: #333;
+    font-size: 0.32rem;
+    text-align: center;
+    width: 100%;
+    margin-top: 0.1rem;
+}
+.k-wyk-prodertails .prodertails_bottom .bottom_ask {
+    background-color: #CA0000;
+    width: 32%;
+    margin-right: 6%;
+    font-size: 0.4rem;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    border-radius: 0.15rem;
+}
+.k-wyk-prodertails .prodertails_bottom .bottom_select {
+    background-color: #00A3E3;
+    width: 32%;
+    margin-right: 6%;
+    font-size: 0.4rem;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    border-radius: 0.15rem;
+}

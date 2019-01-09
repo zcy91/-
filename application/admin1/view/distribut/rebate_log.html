@@ -1,0 +1,141 @@
+<include file="public/min-header"/>
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<div class="wrapper">
+  <include file="public/breadcrumb"/>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i>分成记录</h3>
+        </div>
+        <div class="panel-body">    
+		<div class="navbar navbar-default">                    
+                <form id="search-form2" class="navbar-form form-inline"  method="post" action="{:U('/Admin/Distribut/rebate_log')}">
+                <div class="form-group">
+                  <label for="input-order-id" class="control-label">状态:</label>
+                <div class="form-group">
+                  <select class="form-control" id="status" name="status">                       
+                    <option value="">全部</option>                    
+                    <option value="0"<if condition="$_REQUEST['status'] heq '0'">selected</if>>未付款</option>
+                    <option value="1"<if condition="$_REQUEST['status'] eq 1">selected</if>>已付款</option>
+                    <option value="2"<if condition="$_REQUEST['status'] eq 2">selected</if>>等待分成</option>
+                    <option value="3"<if condition="$_REQUEST['status'] eq 3">selected</if>>已分成</option>
+                    <option value="4"<if condition="$_REQUEST['status'] eq 4">selected</if>>已取消</option>
+                  </select>
+                </div>
+                  <label for="input-order-id" class="control-label">用户ID:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="user_id" placeholder="用户id" value="" name="user_id">                    
+                  </div>
+                  
+                  <label for="input-order-id" class="control-label">订单号:</label>                
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="input-order-id" placeholder="订单编号" value="{$_REQUEST[order_sn]}" name="order_sn">                    
+                  </div>
+                  
+                   <div class="input-group margin">                    
+                    <div class="input-group-addon">
+                        记录生成时间<i class="fa fa-calendar"></i>
+                    </div>
+                       <input type="text" id="start_time" value="{$create_time}" name="create_time" class="form-control pull-right" style="width:250px;">
+                  </div>                  
+                  
+                </div>
+                <div class="form-group">    
+                    <button class="btn btn-primary" id="button-filter search-order" type="submit"><i class="fa fa-search"></i> 筛选</button>    
+                </div>                                 
+                </form>    
+          </div>
+                        
+          <div id="ajax_return"> 
+                 
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="sorting text-left">ID</th>
+                                <th class="sorting text-left">获佣用户id</th>
+                                <th class="sorting text-left">订单编号</th>
+                                <th class="sorting text-left">获佣金额</th>
+                                <th class="sorting text-left">获佣用户级别</th>
+                                <th class="sorting text-left">记录生成时间</th>
+                                <th class="sorting text-left">状态</th>                                
+                                <th class="sorting text-left">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="v">
+                                <tr>
+                                    <td class="text-left">{$v.id}</td>
+                                    <td class="text-left">
+                                        <a href="{:U('Admin/user/detail',array('id'=>$v[user_id]))}">
+                                             {$v.user_id}
+                                        </a>
+                                    </td>
+                                    <td class="text-left">
+                                        <a href="{:U('Admin/order/detail',array('order_id'=>$v[order_id]))}">
+                                            {$v.order_sn}
+                                        </a>
+                                    </td>
+                                    <td class="text-left">{$v.money}</td>
+                                    <td class="text-left">{$v.level}</td>
+                                    <td class="text-left">{$v.create_time|date="Y-m-d",###}</td>
+                                    <td class="text-left">                                        
+                                        <if condition="$v[status] eq 0">未付款</if>
+                                        <if condition="$v[status] eq 1">已付款</if>
+                                        <if condition="$v[status] eq 2">等待分成</if>
+                                        <if condition="$v[status] eq 3">已分成</if>
+                                        <if condition="$v[status] eq 4">已取消</if>              
+                                    </td>                                    
+                                    <td class="text-left">                                        
+                                            <a href="{:U('Admin/Distribut/editRebate',array('id'=>$v['id'],'p'=>$Request.param.p))}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+                                        <!--
+                                        <a href="javascript:void(0);" onclick="del('{$list[id]}')" id="button-delete6" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"><i class="fa fa-trash-o"></i></a>
+                                        -->
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                <div class="row">
+                    <div class="col-sm-6 text-left"></div>
+                    <div class="col-sm-6 text-right">{$show}</div>
+                </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row --> 
+  </section>
+  <!-- /.content --> 
+</div>
+<!-- /.content-wrapper --> 
+ <script> 
+$(document).ready(function() {
+	$('#start_time').daterangepicker({
+		format:"YYYY-MM-DD",
+		singleDatePicker: false,
+		showDropdowns: true,
+		minDate:'2016-01-01',
+		maxDate:'2030-01-01',
+		startDate:'<?php echo date("Y-m",strtotime("-1 month"));?>-01',
+	    locale : {
+            applyLabel : '确定',
+            cancelLabel : '取消',
+            fromLabel : '起始时间',
+            toLabel : '结束时间',
+            customRangeLabel : '自定义',
+            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月' ],
+            firstDay : 1
+        }
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<table>
+       <tbody>
+            <volist name="goodsList" id="list">
+              <tr>
+                <td class="sign" axis="col6">
+                  <div style="width: 24px;"><i class="ico-check"></i></div>
+                </td>
+			 <td class="handle" >
+                <div style="text-align:left;   min-width:50px !important; max-width:inherit !important;">
+                  <span class="btn"><em><i class="fa fa-cog"></i>设置<i class="arrow"></i></em>
+                  <ul>
+                    <li><a href="{:U('Admin/Activity/addEditGroupUser',array('id'=>$list['user_id'],'page'=>$p))}">编辑</a></li>
+                    <li><a href="javascript:void(0);" onclick="del_goods('{$list[user_id]}',this)">删除</a></li>
+                  </ul>
+                  </span>
+                </div>
+              </td>
+                <td align="center" axis="col0">
+                  <div style="text-align: center; width: 300px;">{$list.title}</div>
+                </td>
+                <td align="center" axis="col0">
+                  <div style="width: 50px;">{$list.user_id}</div>
+                </td>                
+                <td align="center" axis="col0">
+                  <div style="text-align: left; width: 100px;">{$list.name|getSubstr=0,33}</div>
+                </td>
+
+                <td align="center" axis="col0">
+                  <div style="text-align: center; width: 100px;">{$list.phone}</div>
+                </td>
+                <td align="center" axis="col0">
+                  <div style="text-align: center; width: 300px;">{$list.company|getSubstr=0,33}</div>
+                </td>
+                <td align="center" axis="col0">
+                  <div style="text-align: center; width: 150px;">{$list.addtime|date='Y-m-d H:i:s',###}</div>
+                </td>
+
+                <!--<td align="center" axis="col0">                  -->
+                <!--<div style="text-align: center; width: 50px; <if condition="$list.store_count elt tpCache('basic.warning_storage')">color:#D91222;</if> ">-->
+                  <!--{$list.store_count}-->
+                <!--</div>-->
+                <!--</td>           -->
+
+                <td align="" class="" style="width: 100%;">
+                  <div>&nbsp;</div>
+                </td>
+              </tr>
+            </volist>             
+          </tbody>
+        </table>
+        <!--分页位置--> {$page}
+		<script>
+            // 点击分页触发的事件
+            $(".pagination  a").click(function(){
+                cur_page = $(this).data('p');
+                document.cookie="page="+cur_page+";path="+"/";
+                ajax_get_table('search-form2',cur_page);
+            });
+			
+			/*
+			 * 清除静态页面缓存
+			 */
+			function ClearGoodsHtml(goods_id)
+			{
+				$.ajax({
+						type:'GET',
+						url:"{:U('Admin/System/ClearGoodsHtml')}",
+						data:{goods_id:goods_id},
+						dataType:'json',
+						success:function(data){
+							layer.alert(data.msg, {icon: 2});								 
+						}
+				});
+			}
+			/*
+			 * 清除商品缩列图缓存
+			 */
+			function ClearGoodsThumb(goods_id)
+			{
+				$.ajax({
+						type:'GET',
+						url:"{:U('Admin/System/ClearGoodsThumb')}",
+						data:{goods_id:goods_id},
+						dataType:'json',
+						success:function(data){
+							layer.alert(data.msg, {icon: 2});								 
+						}
+				});
+			}		
+			
+        </script>

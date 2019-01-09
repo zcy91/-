@@ -1,0 +1,768 @@
+@charset "UTF-8";
+/*  主题色*************************/
+/*  背景色*************************/
+/*  文字色*************************/
+/*  字体定义规范**********************/
+/* s-annual.html 2019年会邀请函页 */
+.s-annual {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: .7rem;
+}
+
+.s-annual .annual-navs {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding-top: .1rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.s-annual .annual-navs li {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.s-annual .annual-navs li a {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: .6rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  font-size: .24rem;
+}
+
+.s-annual .annual-navs li a.active {
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(to right, #ff512f, #de1573);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.s-annual .annual-navs li a.active:after {
+  display: block;
+  content: "";
+  width: 100%;
+  height: .05rem;
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(left, #ff512f, #de1573);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-radius: .05rem;
+}
+
+.s-annual .each-projects {
+  width: 100%;
+}
+
+.s-annual .each-projects img {
+  background-color: #f5f5f5;
+}
+
+/* s-annual.html 2019年会邀请函页 结束 */
+/* annual-query.html 会员查询页 */
+.annual-query .sub-title {
+  font-size: .24rem;
+  padding: .3rem 0 .2rem;
+  text-align: center;
+}
+
+.annual-query .m-query-inner .query-form-wrapper {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 .3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: .2rem 0;
+  margin-bottom: .2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input img {
+  width: .41rem;
+  height: .41rem;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input > span {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0 .3rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input > input {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: .1rem .2rem;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input .get-code {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input .get-code .code-input {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: .1rem .2rem;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input .get-code .code-btn {
+  padding: .06rem .1rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #fff;
+  background-color: #aeaeae;
+  border-radius: .04rem;
+}
+
+.annual-query .m-query-inner .query-form-wrapper label.each-input .get-code .code-pic {
+  color: #818181;
+  width: 1.5rem;
+  background-color: #d6d6d6;
+  border-radius: .04rem;
+}
+
+.annual-query .m-query-inner .query-form-wrapper .submit-btn {
+  width: 100%;
+  margin-top: .3rem;
+  color: #fff;
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(left, #ff512f, #de1573);
+  padding: .12rem 0;
+  border-radius: .05rem;
+  font-size: .25rem;
+}
+
+.annual-query .query-sum {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: .3rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 .3rem;
+  font-size: .22rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+/* annual-query.html 会员查询页 结束 */
+/* annual-user.html 会员信息页 */
+.annual-user {
+  min-height: 100%;
+  background-image: url("../img/会员背景.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.annual-user .head-logo {
+  width: 2rem;
+  padding: .6rem 0 .9rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.annual-user .agent-grade-wrapper {
+  width: 5.23rem;
+  height: 1.29rem;
+}
+
+.annual-user .agent-grade-wrapper.market {
+  background-image: url("../img/市场总监.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+}
+
+.annual-user .agent-grade-wrapper.star {
+  background-image: url("../img/明星店主.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+}
+
+.annual-user .agent-grade-wrapper.vip {
+  background-image: url("../img/钻石VIP.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+}
+
+.annual-user .agent-infos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 5.23rem;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: .2rem 0 .55rem;
+}
+
+.annual-user .agent-infos .left {
+  color: #2a2d36;
+  font-size: .21rem;
+  text-shadow: 0.1em 0.1em #f6f6f6;
+  width: 2.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.annual-user .agent-infos .potrait {
+  width: .5rem;
+  height: .5rem;
+}
+
+.annual-user .agent-infos .right {
+  color: #2a2d36;
+  font-size: .21rem;
+  text-shadow: 0.1em 0.1em #f6f6f6;
+  width: 2.3rem;
+  text-align: right;
+}
+
+.annual-user .welcom-txt {
+  color: #f6f6f6;
+  font-size: .25rem;
+  font-weight: bold;
+}
+
+.annual-user .enter-in {
+  margin-top: .8rem;
+}
+
+.annual-user .enter-in img {
+  width: 3.27rem;
+}
+
+/* annual-user.html 会员信息页 结束 */
+/* erp-query.html erp产品查询页 */
+.erp-query {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.erp-query h2 {
+  padding: .2rem 0;
+  font-size: .26rem;
+  font-weight: bold;
+}
+
+.erp-query .query-input-wrapper {
+  width: 6.0rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: .1rem 0;
+}
+
+.erp-query .query-input-wrapper .query-content {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: .05rem .1rem;
+  font-size: .22rem;
+  width: 3.5rem;
+}
+
+.erp-query .query-input-wrapper .query-btn {
+  padding: .05rem .2rem;
+  margin-left: auto;
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(left, #ff512f, #de1573);
+  color: #fff;
+  border-radius: .05rem;
+}
+
+.erp-query .query-table {
+  width: 6.2rem;
+  max-width: 6.2rem;
+  margin-top: .2rem;
+  background-color: transparent;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: .2rem;
+}
+
+.erp-query .query-table thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  background-color: #f5f5f5;
+  font-size: .22rem;
+}
+
+.erp-query .query-table thead tr th {
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+  line-height: 1.5;
+  border-right: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: .05rem;
+}
+
+.erp-query .query-table thead tr th:last-child {
+  border-right: 0 none;
+}
+
+.erp-query .query-table thead tr th.no {
+  width: 1rem;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.erp-query .query-table thead tr th.name {
+  width: 2rem;
+}
+
+.erp-query .query-table tbody tr {
+  /*display: table-row;*/
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.erp-query .query-table tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.erp-query .query-table tbody tr th {
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  padding: .05rem;
+}
+
+.erp-query .query-table tbody tr th:last-child {
+  border-right: 0 none;
+}
+
+.erp-query .query-table tbody tr td {
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  padding: .05rem;
+  word-break: break-all;
+}
+
+.erp-query .query-table tbody tr td:last-child {
+  border-right: 0 none;
+}
+
+.bottom-confirm {
+  width: 100%;
+  height: .7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.bottom-confirm a {
+  text-align: center;
+  padding: .08rem .5rem;
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(left, #ff512f, #de1573);
+  color: #fff;
+  border-radius: .05rem;
+}
+
+/* erp-query.html erp产品查询页 结束 */
+/* erp-bind.html erp产品查询页 */
+.erp-bind {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.erp-bind h2 {
+  padding: .2rem 0;
+  font-size: .26rem;
+  font-weight: bold;
+}
+
+.erp-bind .bind-input-wrapper {
+  width: 6.0rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: .1rem 0;
+}
+
+.erp-bind .bind-input-wrapper .bind-content {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: .05rem .1rem;
+  font-size: .22rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.erp-bind .code-query-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: .15rem 0;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 6rem;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.erp-bind .code-query-wrapper input {
+  width: 2.9rem;
+  text-align: center;
+  padding: .08rem 0;
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(left, #ff512f, #de1573);
+  color: #fff;
+  border-radius: .05rem;
+}
+
+.erp-bind .code-query-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: .15rem 0;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 6rem;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.erp-bind .code-query-input input {
+  width: 2.9rem;
+  text-align: center;
+  padding: .08rem .1rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.erp-bind .bind-table {
+  width: 6rem;
+  max-width: 6rem;
+  margin-top: .2rem;
+  background-color: transparent;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: .22rem;
+}
+
+.erp-bind .bind-table thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+  background-color: #f5f5f5;
+}
+
+.erp-bind .bind-table thead tr th {
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+  line-height: 1.5;
+  border-right: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: .05rem;
+}
+
+.erp-bind .bind-table thead tr th:last-child {
+  border-right: 0 none;
+}
+
+.erp-bind .bind-table thead tr th.no {
+  width: 1rem;
+}
+
+.erp-bind .bind-table thead tr th.name {
+  width: 2rem;
+}
+
+.erp-bind .bind-table tbody tr {
+  /*display: table-row;*/
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.erp-bind .bind-table tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.erp-bind .bind-table tbody tr th {
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  padding: .05rem;
+}
+
+.erp-bind .bind-table tbody tr th:last-child {
+  border-right: 0 none;
+}
+
+.erp-bind .bind-table tbody tr td {
+  vertical-align: middle;
+  border-bottom: 1px solid #ddd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  padding: .05rem;
+  word-break: break-all;
+}
+
+.erp-bind .bind-table tbody tr td:last-child {
+  border-right: 0 none;
+}
+
+.erp-bind-confirm {
+  width: 100%;
+  height: .7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.erp-bind-confirm a {
+  text-align: center;
+  padding: .08rem .5rem;
+  background: -webkit-gradient(linear, left top, right top, from(#ff512f), to(#de1573));
+  background: linear-gradient(left, #ff512f, #de1573);
+  color: #fff;
+  border-radius: .05rem;
+  margin: 0 .5rem;
+}
+
+/* erp-bind.html erp产品查询页 结束 */
+/* XX.html 某某页 */
+.bottom-page-tab {
+  width: 6.4rem;
+  background-color: #fff;
+  height: .7rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  left: 50%;
+  bottom: 0;
+  margin-left: -3.2rem;
+  padding: 0 .4rem;
+  box-sizing: border-box;
+  font-size: .23rem;
+}
+
+.bottom-page-tab > div {
+  position: relative;
+}
+
+.bottom-page-tab > div span {
+  margin: 0 .1rem;
+}
+
+/* XX.html 某某页 结束 */
+/* XX.html 某某页 */
+/* XX.html 某某页 结束 */

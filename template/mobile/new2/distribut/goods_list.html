@@ -1,0 +1,460 @@
+<include file="public/header" title="分销商品列表"/>
+<include file="public/header_nav" title="分销商品列表" href="javascript:history.back(-1)"/>
+<div class="p search_pl">
+    <div class="maleri30">
+        <div class="search2">
+            <form method="get" action="" id="sourch_form">
+                <div class="le_inp">
+                    <input type="text" name="key_word" size="30" id="search" placeholder="输入商品名称" value="{:I('key_word')}"/>
+                </div>
+                <a href="javascript:;" onclick="ajaxsecrch()" >
+                    <div class="ri_ss"><img src="__STATIC__/images/sea.png"/></div>
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+<!--排序按钮-s-->
+<nav class="storenav p search_list_dump" id="head_search_box product_sort">
+    <ul>
+        <li>
+            <!--<span class="lb <if condition="(I('sort') eq 'is_new' or  I('sort') eq 'comment_count')">red</if>">综合</span>-->
+            <!--<i></i>-->
+            <a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'')));?>" class="<if condition="$Request.param.sort eq ''">on red</if>"  ><span class="dq" >综合</span></a>
+        </li>
+        <li>
+            <a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'is_new')));?>" class="<if condition="$Request.param.sort eq 'is_new'">on red</if>"><span class="dq" >新品</span></a>
+        </li>
+        <li class="<if condition="$Request.param.sort eq 'sales_sum'">red</if>">
+        <a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'sales_sum')));?>" >
+            <span class="dq" >销量</span>
+        </a>
+        </li>
+        <li class="<if condition="$Request.param.sort eq 'commission'">red</if>">
+        <if condition="I('sort_asc') eq 'asc'">
+            <a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'commission','sort_asc'=>'desc')));?>">
+                <else/>
+                <a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'commission','sort_asc'=>'asc')));?>">
+        </if>
+        <span class="jg dq">佣金</span>
+        </a>
+        <i  class="pr <if condition="I('sort_asc') eq 'asc'">bpr2</if>  <if condition="I('sort_asc') eq 'desc'"> bpr1 </if>"></i>
+        </li>
+        <li>
+            <span class="sx">筛选</span>
+            <i class="fitter"></i>
+        </li>
+        <!--<li>-->
+        <!--<i class="listorimg"></i>-->
+        <!--</li>-->
+    </ul>
+</nav>
+<!--排序按钮-e-->
+
+<!--商品详情s-->
+    <form id="add_form" name="formCart" action="{:U('Mobile/Distribut/add_goods')}"  method="post">
+        <empty name="goodsList">
+            <!--没有内容时-s-->
+            <div class="comment_con p">
+                <div style="padding:1rem;text-align: center;font-size: .59733rem;color: #777777;">
+                    <img src="__STATIC__/images/none.png"/><br /><br />抱歉暂时没有相关商品！</div>
+            </div>
+            <!--没有内容时-e-->
+        <else />
+            <div id="goods_list">
+                <foreach name="goodsList" item="vo" key="k">
+                    <div class="orderlistshpop p" id="list{$vo.goods_id}" >
+                        <div class="maleri30">
+                            <!--商品列表-s-->
+                            <div class="sc_list">
+                                <div class="radio fl">
+                                    <!--商品勾选按钮-->
+                                <span onClick="checkgood(this)" class="che " >
+                                    <input type="checkbox" style="display: none" autocomplete="off" name="{$vo.goods_id}[goods_id]"  value="{$vo.goods_id}" >
+                                    <input type="checkbox" style="display: none" autocomplete="off" name="{$vo.goods_id}[cat_id]" value="{$vo.cat_id}" >
+                                    <input type="checkbox" style="display: none" autocomplete="off" name="{$vo.goods_id}[brand_id]"  value="{$vo.brand_id}" >
+                                    <input type="checkbox" style="display: none" autocomplete="off" name="{$vo.goods_id}[goods_name]"  value="{$vo.goods_name}" >
+                                    <i></i>
+                                </span>
+                                </div>
+                                <div class="shopimg fl">
+                                    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id],'first_leader'=>$_COOKIE['user_id']))}">
+                                        <!--商品图片-->
+                                        <img src="{$vo[goods_id]|goods_thum_images=200,200}">
+                                    </a>
+                                </div>
+                                <div class="deleshow fr">
+                                    <div class="deletes">
+                                        <!--商品名-->
+                                    <span class="similar-product-text fl">
+                                        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id],'first_leader'=>$_COOKIE['user_id']))}">{$vo[goods_name]|getSubstr=0,20}</a>
+                                    </span>
+                                        <a href="javascript:void(0);" onclick="confirm_submit({$vo.goods_id})" class="delescj" title="添加到分销商品">
+                                            <!--<img src="__STATIC__/distribut/images/add.jpg"/>-->
+                                        </a>
+                                    </div>
+                                    <!--商品属性，规格-->
+                                    <p class="weight">分成金额:{$vo[commission]}</p>
+                                    <div class="prices">
+                                        <p class="sc_pri fl">
+                                            <!--商品单价-->
+                                            <span>￥</span><span>{$vo[shop_price]}</span>
+                                        </p>
+                                        <div class="plus fr get_mp">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--商品列表-e-->
+                        </div>
+                    </div>
+                </foreach>
+            </div>
+        </empty>
+    </form>
+<!--商品详情e-->
+<!--提交栏-s-->
+    <div class="foohi foohiext">
+        <div class="payit ma-to-20 payallb">
+            <div class="fl alllef">
+                <div class="radio fl " onclick="chkAll_onclick()">
+                            <span class="che alltoggle">
+                                <i></i>
+                            </span>
+                    <span class="all">全选</span>
+                </div>
+                <!--<div class="youbia">-->
+                <!--<p><span class="pmo">总计：</span><span>￥</span><span id="cartsum">{$total_price.total_fee}</span></p>-->
+                <!--<p class="lastime"><span>不含运费</span></p>-->
+                <!--</div>-->
+            </div>
+            <div class="fr">
+                <a href="javascript:void(0);" onclick="return confirm_submit()">添加</a>
+            </div>
+        </div>
+    </div>
+<!--提交栏-e-->
+
+<!--综合排序-s-->
+    <!--<div class="fil_all_comm">-->
+    <!--<div class="maleri30">-->
+        <!--<ul>-->
+            <!--<li>-->
+                <!--<a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'')));?>" class="red <if condition="$Request.param.sort eq ''">on red</if>"  >综合</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'is_new')));?>" class="<if condition="$Request.param.sort eq 'is_new'">on red</if>">新品</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="<?php echo urldecode(U('Mobile/Distribut/goods_list',array('sort'=>'comment_count')));?>" class="<if condition="$Request.param.sort eq 'comment_count'">on red</if>">评价</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
+<!--综合排序-e-->
+
+<!--筛选-s-->
+    <div class="screen_wi">
+    <div class="classreturn loginsignup">
+        <div class="content">
+            <div class="ds-in-bl return seac_retu">
+                <a href="javascript:void(0);" ><img src="__STATIC__/distribut/images/return.png" alt="返回"></a>
+            </div>
+            <div class="ds-in-bl search center">
+                <span class="sx_jsxz">筛选</span>
+            </div>
+            <div class="ds-in-bl suce_ok">
+                <!--<a href="javascript:void(0);">确定</a>-->
+            </div>
+        </div>
+    </div>
+    <!--顶部筛选-s-->
+    <!--<div class="popcover">-->
+        <!--<ul>-->
+            <!--<li>-->
+                <!--<span <if condition="$Requset.param.sel eq 'all'">class="ch_dg"</if>>-->
+                <!--显示全部<input type="hidden"  class="sel" value="all" ></span>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<span <if condition="$Requset.param.sel eq 'store_count'">class="ch_dg"</if>>-->
+                <!--仅看有货<input type="hidden"  value='store_count'></span>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<span <if condition="$Requset.param.sel eq 'prom_type'">class="ch_dg"</if>>促销商品-->
+                <!--<input type="hidden"  value="prom_type" ></span>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+    <!--筛选顶部-e-->
+
+    <!--一级筛选条件-s-->
+    <div class="list-se-all ma-to-20 one-related" >
+        <!--全部分类-s-->
+        <div class="myorder p" onclick="cateArr()">
+            <div class="content30">
+                <a href="javascript:void(0);">
+                    <div class="order">
+                        <div class="fl">
+                            <span>全部分类</span>
+                        </div>
+                        <div class="fr">
+                            <i class="Mright"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!--全部分类-e-->
+
+        <!--品牌-s-->
+        <div class="myorder p " onclick="filtercriteria('brind')" >
+            <div class="content30" >
+                <a href="javascript:void(0)">
+                    <div class="order" >
+                        <div class="fl">
+                            <span>全部品牌</span>
+                        </div>
+                        <div class="fr">
+                            <i class="Mright"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!--品牌-e-->
+
+        <input type="hidden" id="key" value="" />
+    </div>
+    <!--一级筛选条件-e-->
+
+    <!--二级刷选条件-->
+    <div class="list-se-all ma-to-20 two-related">
+
+        <!--分类筛选-s-->
+        <foreach name="categoryList" item="cate" key="catek">
+            <div class="myorder p catearr" id="cate">
+                <div class="content30">
+                    <a href="{:U('Mobile/Distribut/goods_list',array('cat_id'=>$cate['id']))}">
+                        <div class="order">
+                            <div class="fl">
+                                <span>{$cate.name}</span>
+                            </div>
+                            <div class="fr">
+                                <i class=""></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </foreach>
+        <!--分类筛选-e-->
+
+        <!--所有品牌筛选-s-->
+        <foreach name="brandList" item="v">
+            <div class="myorder p brind" data-id="{$v[id]}" >
+                <div class="content30" >
+                    <a href="{:U('Mobile/Distribut/goods_list',array('brind_id'=>$v['id']))}">
+                        <div class="order">
+                            <div class="fl">
+                                <span>{$v[name]}</span>
+                            </div>
+                            <div class="fr">
+                                <i class=""><input type="checkbox" style="display: none;"  value="{$v[name]}"/></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </foreach>
+        <!--所有品牌筛选-e-->
+    </div>
+    <!--二级刷选条件-e-->
+
+</div>
+<!--筛选-e-->
+
+<div class="mask-filter-div" style="display: none;"></div>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script type="text/javascript">
+    /**搜索*/
+    function ajaxsecrch(){
+        if($.trim($('#search').val()) != ''){
+            $("#sourch_form").submit();
+        }else{
+            layer.open({content:'请输入搜索关键字',time:2});
+        }
+    }
+    //勾选商品
+    function checkgood(obj){
+        if($(obj).hasClass('check_t')){
+            //取消选中
+            $(obj).find('input').prop('checked',false);
+        }else {
+            //勾选选中
+            $(obj).find('input').prop('checked',true);
+        }
+    }
+
+    //确认添加多个
+    function confirm_submit()
+    {
+        //获取选中的商品个数
+        var j=0;
+        $("input[type='checkbox']:checked").each(function(){
+            j++;
+        });
+        //选择数大于0
+        if (j>0){
+            $("#add_form").submit()
+        }else {
+            layer.open({content:'请选择要添加的商品！',time:2});
+            return false;
+        }
+    }
+    //全选按钮
+    function chkAll_onclick()
+    {
+        //取消全选
+        if(!$('.alltoggle').hasClass('check_t')){
+            $('.sc_list .che').each(function() {
+                $('.sc_list  .che').removeClass('check_t');
+                //全部商品取消checked
+                $("input[type='checkbox']").prop('checked', false);
+            })
+        }else{
+            //全选
+            $('.sc_list .che').each(function(){
+                $('.sc_list .che').addClass('check_t');
+                $("input[type='checkbox']").prop('checked',true);
+            })
+        }
+    }
+    //返回按钮
+    $('.seac_retu').click(function(){
+        //判断当前二级筛选状态
+        if($('.suce_ok').is('.two')){
+            $(".filter").each(function(i,o){
+                //去掉全部选择
+                $(o).find('.fr input').attr('checked',false);
+            });
+            $('#key').removeAttr('class');
+            //显示一级筛选
+            $('.screen_wi,.popcover,.one-related').show();
+            $('.two-related').hide();
+            $('.sx_jsxz').html('筛选');
+            $('.suce_ok').removeClass('two');
+        }else{
+            $('.screen_wi').animate({width: '0', opacity: 'hide'}, 'normal',function(){
+                undercover();
+                $('.screen_wi').hide();
+            });
+        }
+    })
+
+
+    //筛选弹窗的全部分类筛选
+    function cateArr(){
+        $('.catearr').show();
+        $('.brind').hide();
+    }
+    //显示筛选弹窗的品牌筛选
+    function filtercriteria(){
+        $('.brind').show();
+        $('.catearr').hide();
+    }
+
+    var  page = 1;
+    /**
+     * ajax加载更多商品
+     */
+    function ajax_sourch_submit()
+    {
+        page += 1;
+        $.ajax({
+            type : "POST",
+            url:"{:U('Mobile/Distribut/goods_list')}",
+            data:{id:'{$Request.param.id}',sort:'{$Request.param.sort}',sort_asc:'{$Request.param.sort_asc}',is_ajax:1,p:page},
+            success: function(data)
+            {
+                if($.trim(data) == '')
+                    $('#getmore').hide();
+                else
+                    $("#goods_list").append(data);
+            }
+        });
+    }
+    //显示隐藏筛选弹窗
+    var lb = $('.search_list_dump .lb')
+    var fil = $('.fil_all_comm');
+    var cs = $('.classreturn,.search_list_dump');
+    var son = $('.search_list_dump .jg').siblings();
+    $('.storenav ul li span').click(function(){
+        $(this).parent().addClass('red').siblings('li').removeClass('red')
+        if(!$(this).hasClass('lb')){
+            fil.hide();
+            undercover();
+            cs.removeClass('pore');
+        }
+        if(!$(this).hasClass('jg')){
+            son.removeClass('bpr1');
+            son.removeClass('bpr2');
+        }
+    });
+
+
+    $(function(){
+        //显示综合筛选弹窗
+        lb.click(function(){
+            fil.show();
+            cover();
+            cs.addClass('pore');
+        });
+
+        lb.html($('.on').html());
+        //筛选
+        $('.search_list_dump .sx').click(function(){
+            $('body').css('position','relative');
+            $('.screen_wi').animate({width: '14.4rem', opacity: 'show'}, 'normal',function(){
+                $('.screen_wi').show();
+                cover();
+            });
+        })
+
+        //  顶部筛选 筛选1-popcover
+        $('.popcover ul li span').click(function(){
+//            $(this).toggleClass('ch_dg');
+            //给span添加样式，并给其子代input添加class
+            $(this).addClass('ch_dg').find('input').addClass('sel');
+            $(this).parent('li').siblings('li').find('span').removeClass('ch_dg')
+                    .find('input').removeClass('sel');
+        })
+
+
+        // 一级筛选条件筛选2-one-related
+        $('.one-related .myorder .order').click(function(){
+            $('.two-related').show();
+            $('.suce_ok').addClass('two');
+            $('.tow-price,.one-related,.popcover').hide();
+            $('.sx_jsxz').html($(this).find('.fl span').text());
+        })
+
+        //筛选3-two-related
+        $('.two-related .myorder .order').click(function(){
+            var mright = $(this).find('.fr i');
+            var input = mright.find("input");
+            mright.toggleClass('Mright');
+            //改变复选框状态
+            mright.hasClass('Mright') ? input.attr('checked',true) : input.attr('checked',false);
+        })
+
+//        //切换商品排列样式
+//        $('.listorimg').click(function(){
+//            $(this).toggleClass('orimg');
+//            $('#goods_list').toggleClass('addimgchan');
+//            $('.orderlistshpop').toggleClass('addimgchan');
+//        })
+    })
+
+</script>
+</body>
+</html>

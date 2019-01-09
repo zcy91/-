@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-dpr="1" style="font-size: 43.5789px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>下单选择顾问</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/service/css.css">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/service/already.css">
+  <script src="__STATIC__/service/rem.js"></script><meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <script src="__STATIC__/service/jquery-1.8.3.min.js"></script>
+</head>
+<body style="font-size: 18px;">   
+  <div class="k-wyk-prodertails">
+    <div class="prodertails_head">
+        <img src="{$admin.img}" alt="">
+        <p class="head_name">{$admin.nickname}</p>
+        <div class="head_marks">
+						<p class="ng-scope"></p>        </div> 
+    </div>
+    <div class="prodertails_location">
+        <img src="__STATIC__/service/location.png" alt="公司地址">
+        <p class="ng-binding">{$address}-{$tpshop_config['shop_info_address']}</p>
+        <span></span>
+        <p class="ng-binding">{$tpshop_config['shop_info_store_name']}</p>
+    </div>
+    <div class="prodertails_label">
+        <p class="label_text">执业经验{$admin.experience}年</p>
+    </div>
+    <div class="prodertails_singular">
+        <p>接单数<span class="ng-binding">{$order_num}</span></p>
+        <span class="singular_line"></span>
+        <p>好评率<span class="ng-binding">{$rate}%</span></p>
+    </div>
+    <div class="prodertails_select">
+        <div class="select_already ">
+          <div class="already_block">
+            <p class="block_title">已选择服务</p>
+            <p class="block_text ng-binding">{$good.goods_name}</p>
+          </div>
+          <!--<div class="already_more">
+                    <a class="more_t" ng-click="seeMoreType()">更多服务</a>
+                    <span class="more_arrow"></span>
+          </div>-->
+        </div>
+    </div>
+    <div class="prodertails_comment">
+        <div class="comment_title">
+            <p class="title_user">用户评价<span class="ng-binding">{$comment_num}条评价</span></p>
+            <p class="title_good">好评率<span class="ng-binding">{$rate}%</span></p>
+        </div>
+        <div class="comment_label"></div>
+        <if condition="$comment_num gt 0">
+        <div class="comment_single">
+            <div class="single_username">
+                <div class="username_l">
+                        <p class="l_text ng-binding">{$comment.0.username}</p>
+                        <ul>
+                           <if condition="$comment.0.service_rank eq 1">
+                               <li class="">
+                                   <span></span>
+                               </li>
+                               <elseif condition="$comment.0.service_rank eq 2">
+                                   <li class="">
+                                       <span></span>
+                                   </li>
+                                   <li class="">
+                                        <span></span>
+                                   </li>
+                               <elseif condition="$comment.0.service_rank eq 3">
+                                   <li class="">
+                                       <span></span>
+                                   </li>
+                                   <li class="">
+                                       <span></span>
+                                   </li>
+                                   <li class="">
+                                        <span></span>
+                                    </li>
+                                   <elseif condition="$comment.0.service_rank eq 4">
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                   <else/>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                                       <li class="">
+                                           <span></span>
+                                       </li>
+                           </if>
+
+                        </ul>
+                </div>
+                <p class="username_r ng-binding">{$comment.0.add_time|date='Y-m-d H:i',###}</p>
+            </div>
+            <p class="single_text ng-binding">{$comment.0.content|htmlspecialchars_decode}</p>
+        </div>
+        </if>
+        <a class="comment_seebtn ng-scope" href="{:U('Mobile/Goods/allcomment')}?admin_id={$admin.admin_id}&goods_id={$good.goods_id}">查看全部评价</a>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="comfooter">
+        <a href="{:U('Mobile/index/index')}">
+           <div class="indexs">
+               <img src="__STATIC__/service/home2.png" class="indeximg">
+               <div class="footerindex">首页</div>
+           </div>
+        </a>
+        <p class="footerl" onclick="javascript:location.href=&#39;tel:{$tpshop_config['shop_info_phone']}&#39;">人工服务</p>
+        <p class="footerr" onclick="javascript:location.href=&#39;{:U('Mobile/Goods/serviceing')}?goods_id={$good.goods_id}&admin_id={$admin.admin_id}&#39;">选Ta服务</p>
+    </div>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/service/footercom.css">
+
+  </div>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/service/alert.css">
+<style type="text/css">
+		.web_toast {font-size: 0.6rem;}
+</style>
+<script type="text/javascript" src="__STATIC__/service/alert.js"></script>
+<script type="text/javascript">
+
+	  function telcontact(id){
+
+
+		$("#trademarkname").val(id);
+		  
+		$(".content_title").html(id+"预约");
+	 
+		$(".prodertails_popup1").show();
+		
+	  }
+	  
+	  function closealert(){
+	  
+		$(".prodertails_popup1").hide();
+		
+		$(".prodertails_popup2").hide();
+		
+	  }
+	  
+	  //手机验证码
+	  var wait=30;
+	  function getcode(){
+		 if (wait == 0){
+		  $("#abtn").removeClass("grey");
+		  $("#btn").html("重新发送");
+		  $("#abtn").attr("href","javascript:sendMsg()");
+		  wait = 30;
+		 }else{
+		  $("#abtn").addClass("grey");
+		  $("#abtn").attr("href","javascript:outcode()");
+		  $("#btn").html(wait+"秒后重试");
+		  wait--;
+		  setTimeout(function() {
+			getcode();
+		  },
+		  1000);
+		}
+	}
+	  
+	function outcode(){
+		
+		webToast("验证码已发送，请稍后再试！","middle",2000);
+		
+		return false;
+		
+	}
+    
+	function sendMsg(){
+		var mobile = $("#gettel").val();
+		var reg = /^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/;
+		if(!reg.test(mobile)){
+		  
+		  webToast("手机号码格式错误！","middle",2000);
+		  
+		  return false;
+		}
+		$.ajax({
+		type: "POST",
+		url: "/Login/SendCode_2.html",
+		data: {mobile:mobile,act:1},
+		dataType: "html",
+		success: function(data){
+		  //alert(data);
+		  if (data == '1'){
+			 getcode();
+		  }
+		  else{
+			webToast(data,"middle",2000);
+			return false;
+		  }
+		}
+		});    
+	}
+</script>
+
+<!-- 点击出现弹框 -->
+<div class="prodertails_popup prodertails_popup1" style="display:none;">
+   <div class="popup_block">
+  <div class="block_content">
+    <p class="content_title " style="background: #D70C18">免费电话咨询</p>
+    <div>
+      <p class="content_tips">提交成功后,顾问会第一时间给您回复。</p>
+      <input class="content_phone ng-pristine ng-untouched ng-valid" id="gettel" name="mobile" type="tel" placeholder="请输入您的手机号">
+      <input value="0" type="hidden" name="issend" id="issend">
+      <input value="" type="hidden" name="trademarkname" id="trademarkname">
+      <div class="content_ver showsendmeass">
+        <input class="ver_input ng-pristine ng-untouched ng-valid" maxlength="4" id="code" type="num" placeholder="请输入验证码">
+        <a id="abtn" onclick="javascript:sendMsg()"><button id="btn" class="ver_btn ng-binding">获取验证码</button></a>
+      </div>
+    </div>
+    <div class="content_btn">
+      <a class="btn_cancel" onclick="closealert()">取消</a>
+      <a class="btn_submit" onclick="beginConsultation()" style="color: #D70C18">提交</a>
+    </div>
+  </div>
+</div>
+</div>
+<style>
+.prodertails_popup {
+	display:table;
+	position:fixed;
+	background:rgba(0,0,0,.4);
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	z-index:99;
+	text-align:center
+}
+.prodertails_popup .popup_block {
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center
+}
+.prodertails_popup .popup_block .block_content {
+	background-color:#fff;
+	display:inline-block;
+	width:80%;
+	-moz-border-radius:.06667rem;
+	-webkit-border-radius:.06667rem;
+	border-radius:.06667rem
+}
+.prodertails_popup .popup_block .block_content .content_title {
+	font-size:1rem;
+	padding:0.6rem 0 0.6rem;
+	color:#fff;
+	background: #d70c19;
+	border-bottom: 1px solid #ccc;
+}
+.prodertails_popup .popup_block .block_content .content_tips {
+	font-size:0.8rem;
+	line-height:1.9rem;
+	margin:0.3rem 1rem 0.5rem;
+	color:#777
+}
+.prodertails_popup .popup_block .block_content .content_phone {
+	width:80%;
+	padding:0 1rem 0 1rem;
+	height:2.2rem;
+	font-size:1rem;
+	border:1px solid #d9d9d9;
+	box-shadow:none;
+	-webkit-appearance:none;
+	color:#333;margin: 0.5rem;
+	border-radius: 0px
+}
+.prodertails_popup .popup_block .block_content .content_ver {
+	margin:1rem auto 1.5rem;
+	font-size:0
+}
+.prodertails_popup .popup_block .block_content .content_ver .ver_input {
+	width:47%;
+	padding:0 1rem 0 1rem;
+	height:2.2rem;
+	font-size:1rem;
+	border:1px solid #d9d9d9;
+	 margin-left: 5%;
+	color:#333;
+	vertical-align:middle;
+	box-shadow:none;
+	float: left;
+	-webkit-appearance:none;
+	border-radius: 0px;
+	margin-right: 0.5%;
+}
+.prodertails_popup .popup_block .block_content .content_ver .ver_btn {
+	width:32%;
+	height:2.2rem;
+	font-size:0.9rem;
+	background-color:#e60012;
+	border:1px solid #e60012;
+	color:#fff;
+	vertical-align:middle;
+	border-radius: 8px;
+	margin: 12px 2px 0px !important;
+}
+.prodertails_popup .popup_block .block_content .content_ver .ver_btn-after {
+	background-color:#00baf8;
+	color:#fff;
+	border:1.1px solid #00baf8
+}
+.prodertails_popup .popup_block .block_content .content_ver .ver_btn-wait {
+	background-color:#d9d9d9;
+	color:#fff;
+	border:1.1px solid #d9d9d9
+}
+.prodertails_popup .popup_block .block_content .content_btn {
+	margin-top:.53333rem;
+	border-top:1.1px solid #d9d9d9;
+	font-size:0
+}
+.prodertails_popup .popup_block .block_content .content_btn .btn_cancel {
+	font-size:1.2rem;
+	line-height:2.6rem;
+	width:50%;
+	/*border-right:1px solid #d9d9d9;*/
+	display:inline-block;
+	text-align:center;
+    color: #333;
+}
+.prodertails_popup .popup_block .block_content .content_btn .btn_submit {
+	font-size:1.2rem;
+	line-height:2.6rem;
+	width:49%;
+	display:inline-block;
+	text-align:center;
+	color:#d70c19;
+	border-left: 1px solid #e5e5e5;
+}
+.prodertails_popup .popup_block .block_content .content_btn .btn_cancel_call {
+	font-size:.1rem;
+	line-height:1.18667rem;
+	width:8.50667rem;
+	border-right:1.1px solid #d9d9d9;
+	display:inline-block;
+	text-align:center;
+	color:#b5b5b5
+}
+.prodertails_popup .popup_local {
+	background-color:#fafafa;
+	text-align:left
+}
+.prodertails_popup .popup_local .local_select {
+	font-size:0;
+	padding:.53333rem 0 .26667rem;
+	border-bottom:1.1px solid #e0e0e0
+}
+.prodertails_popup .popup_local .local_select .select_item {
+	width:2.90667rem;
+	line-height:.90667rem;
+	font-size:.34667rem;
+	margin:0 0 .26667rem .29333rem;
+	border:1.1px solid #d9d9d9;
+	background-color:#fff;
+	display:inline-block;
+	color:#666;
+	text-align:center
+}
+.prodertails_popup .popup_local .local_select .select_item-active {
+	background-color:#f5f5f5
+}
+.prodertails_popup .popup_local .local_current {
+	font-size:0
+}
+.prodertails_popup .popup_local .local_current .current-city {
+	width:7.94667rem;
+	line-height:1.4rem;
+	font-size:.37333rem;
+	margin-left:.29333rem;
+	display:inline-block;
+	vertical-align:middle
+}
+.prodertails_popup .popup_local .local_current .current-text {
+	font-size:.37333rem;
+	display:inline-block;
+	vertical-align:middle;
+	height:1.4rem;
+	line-height:1.4rem;
+	width:.8rem;
+	color:#009fe6
+}
+.prodertails_popup .popup_local .local_current span {
+	margin-left:.29333rem;
+	vertical-align:middle
+}
+</style>
+<!-- 点击出现弹框 -->
+  <style>
+  .web_toast {font-size: 0.5rem;}
+  .prodertails_popup .popup_block .block_content .content_title {
+    font-size: 18px;
+    padding: 5px 0 5px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+  }
+  </style>
+
+</body></html>

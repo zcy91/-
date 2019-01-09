@@ -1,0 +1,16 @@
+1.使用phpmyadmin或navicat 导入demo_345.sql,若是导入不进去，就直接把demo_345文件夹放到你的数据库文件夹中
+2.修改配置application\database.php
+
+前台测试账号 18005151538  sucaihuo
+
+手机访问：域名+/mobile/
+
+后台：域名+/admin
+
+账号 admin  sucaihuo
+
+若是有问题请及时联系QQ 416148489
+store_count
+
+
+324  937

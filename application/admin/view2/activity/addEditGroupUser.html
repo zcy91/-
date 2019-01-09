@@ -1,0 +1,87 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>报名会员管理 - 会员</h3>
+                <h5>网站系统报名活动会员</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" method="post" id="add_form">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="name"><em>*</em>会员姓名</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="name" id="name" class="input-txt" value="{$data.name}">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="company"><em>*</em>公司名字</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="company" id="company" class="input-txt" value="{$data.company}">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="phone"><em>*</em>手机号码</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="phone" id="phone" class="input-txt" value="{$data.phone}">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="title"><em>*</em>活动名称</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="" id="title" class="input-txt" value="{$data['title']}" readonly>
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <input type="hidden" name="aid" value="{$data.aid}">
+            <input type="hidden" name="user_id" value="{$data.user_id}">
+            <div class="bot"><a href="JavaScript:void(0);" onclick="checkUserUpdate();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function checkUserUpdate(){
+        var mobile = $.trim($('#phone').val());
+        var name = $.trim($('input[name="name"]').val());
+        var company = $.trim($('input[name="company"]').val());
+        var error ='';
+
+        if(name == ''){
+            error += "姓名不能为空\n";
+        }
+        if(company == ''){
+            error += "公司名不能为空\n";
+        }
+        if(!checkMobile(mobile) && mobile == ''){
+            error += "手机号码填写有误\n";
+        }
+        if(error){
+            layer.alert(error, {icon: 2});  //alert(error);
+            return false;
+        }
+        $('#add_form').submit();
+    }
+</script>
+</body>
+</html>

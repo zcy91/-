@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>预售列表-{$tpshop_config['shop_info_store_title']}</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/global.js"></script>
+	</head>
+	<body>
+		<style type="text/css">
+			.page .fr{float: none;position: relative;left: 50%;right: 50%;margin-left: -350px;}
+			.f-total{margin-top: 10px;}
+		</style>
+		<!--header-s-->
+		<include file="public/header" w='w1224'/>
+			<!--header-e-->
+		<div class="search-box p">
+			<div class="w1430">
+				<div class="search-path fl">
+					<a>全部结果</a>
+					<i class="litt-xyb"></i>
+					<span>预售活动</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			// 倒计时
+			function GetRTime2(){
+				//var text = GetRTime('2016/02/27 17:34:00');
+			<foreach name="pre_sell_list" item="v" key="k" >
+						<if condition="$v['end_time'] lt time()">
+					var text{$v[goods_id]} = "活动已结束";
+			<elseif condition="($v['end_time'] gt time()) AND ($v['start_time'] lt time())" />
+				var text{$v[goods_id]} = "预售中 剩余" + GetRTime('{$v.end_time|date="Y/m/d H:i:s",###}');
+			<else />
+				var text{$v[goods_id]} = "预热中 剩余" + GetRTime('{$v.end_time|date="Y/m/d H:i:s",###}');
+			</if>
+				$("#surplus_text{$v[goods_id]}").text(text{$v[goods_id]});
+			</foreach>
+			}
+			setInterval(GetRTime2,1000);
+		</script>
+		<div class="shop-list-tour p">
+			<div class="w1430">
+				<div class="stsho pre-sts">
+					<div class="shop-list-splb pre-set-suma p">
+						<ul>
+							<volist name="pre_sell_list" id="vo">
+								<li>
+									<div class="s_xsall">
+										<div class="xs_img">
+											<a href="{:U('Home/Activity/pre_sell',array('id'=>$vo['act_id']))}">
+												<img class="lazy-list" data-original="{$vo.goods_id|goods_thum_images=262,262}" />
+											</a>
+										</div>
+										<div class="shop_name2">
+											<a href="{:U('Home/Activity/pre_sell',array('id'=>$vo['act_id']))}">
+												{$vo.goods_name}
+											</a>
+										</div>
+										<div class="price-tag">
+											<span class="now"><em class="li_xfo">￥</em><em>{$vo.price}</em></span>
+											<span class="pre-per">已有<em>{$vo.act_count}</em>人参与活动</span>
+											<div class="sjs-olde p">
+												<p class="djs-cctime" ><span id="surplus_text{$vo[goods_id]}"></span></p>
+											</div>
+										</div>
+									</div>
+								</li>
+							</volist>
+						</ul>
+					</div>
+					<!-- page -->
+				</div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<div class="footer p">
+            <include file="public/footer_index" />
+			<include file="public/sidebar_cart" />
+		</div>
+		<!--footer-e-->
+		<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		</script>
+	</body>
+</html>

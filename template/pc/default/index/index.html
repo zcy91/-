@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+</head>
+<body>
+<!--------头部开始-------------->
+<include file="public/header" />
+<!--------头部结束-------------->
+<!-- 首页轮播图片 轮播js 广告-->
+<script src="__STATIC__/js/slider.js"></script>
+<script type="text/javascript">
+    // 首页轮播图片 轮播js 广告
+    $(function() {
+        var bannerSlider = new Slider($('#banner_tabs'), {
+            time: 5000,
+            delay: 400,
+            event: 'hover',
+            auto: true,
+            mode: 'fade',
+            controller: $('#bannerCtrl'),
+            activeControllerCls: 'active'
+        });
+        $('#banner_tabs .flex-prev').click(function() {
+            bannerSlider.prev()
+        });
+        $('#banner_tabs .flex-next').click(function() {
+            bannerSlider.next()
+        });
+    })
+</script>
+<!-- 首页轮播图片 轮播js 广告 end-->
+<!--------banner-开始-------------->
+<div class="nav-banner">
+    <div id="banner_tabs" class="flexslider">
+        <ul class="slides">
+            <!---广告 select * from __PREFIX__ad where position_id = 2 limit 1-->
+            <adv limit="5" item="v" pid="3">
+                <li>
+                    <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+                    <img src="{$v[ad_code]}" width="100%"  title="{$v[title]}" style="{$v[style]}"/>
+                    </a>
+                </li>
+            </adv>
+        </ul>
+        <!--<ul class="flex-direction-nav">
+            <li><a class="flex-prev" href="javascript:;">Previous</a></li>
+            <li><a class="flex-next" href="javascript:;">Next</a></li>
+        </ul>-->
+        <ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
+            <adv  pid = "3" limit="5" item="v" key="k">
+                <li><a>{$k}</a></li>
+            </adv>
+        </ol>
+    </div>
+</div>
+<!--------banner-结束-------------->
+
+<!--------热卖-首发-新闻-公告-开始-------------->
+<div class="layout">
+    <div class="bs-le">
+        <div class="first">
+            <ul>
+                <adv  limit="4" item="v" pid="51323">
+                    <li class="sellers" >
+                        <div class="best">
+                            <div class="best_hot">
+                                <a href="{$v[ad_link]}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+                                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" width="450" height="260"/>
+                                </a>
+                            </div>
+                            <div class="tag">
+                                <img src="__STATIC__/images/1382542488099.png" alt="热卖" />
+                            </div>
+                        </div>
+                    </li>
+                </adv>
+            </ul>
+
+        </div>
+    </div>
+    <div class="bs-ri">
+        <div class="ris-adve"><!--公告上方广告位-->
+            <adv  limit="1" item="v" pid="7">
+                <a href="{$v[ad_link]}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+                </a>
+            </adv>
+        </div>
+        <div class="ris-notice">
+            <div class="notice_t">
+                <ul>
+                    <li id="not_col"><a href="">公告</a></li>
+                    <li id="not_new"><a href="">新闻</a></li>
+                </ul>
+            </div>
+            <div class="notice_b">
+                <ul class="nob1">
+                    <tpshop sql="select * from `__PREFIX__article`  where cat_id = 4 order by article_id desc limit 4" item="v" key="k" >
+                        <li><a href="{:U('Home/Article/detail',array('article_id'=>$v[article_id]))}">{$v['title']|getSubstr=0,18}</a></li>
+                    </tpshop>
+                </ul>
+                <ul class="nob2">
+                    <tpshop sql="select * from `__PREFIX__article`  where cat_id = 3 order by article_id desc limit 4" item="v" key="k" >
+                        <li><a href="{:U('Home/Article/detail',array('article_id'=>$v[article_id]))}">{$v['title']|getSubstr=0,18}</a></li>
+                    </tpshop>
+                </ul>
+            </div>
+        </div>
+        <!--公告下方广告位-->
+        <div class="ris-as">
+            <adv  limit="1" item="v" pid="8">
+                <p><a href="{$v[ad_link]}" <if condition="$v['target'] eq 1">target="_blank"</if> ><img src="{$v[ad_code]}" width="278" height="132" title="{$v[title]}" style="{$v[style]}"></a></p>
+            </adv>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!--------热卖-首发-新闻-公告-结束-------------->
+
+
+<!--------中部banner-开始-------------->
+<div class="layout">
+    <div class="cen-banne">
+        <adv  pid = "4" limit="1" item="v">
+            <a href="{$v['ad_link']}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+            <img src="{$v['ad_code']}" width="1200" height="160"  title="{$v[title]}" style="{$v[style]}"/>
+            </a>
+        </adv>
+    </div>
+</div>
+<!--------中部banner-结束-------------->
+
+<!--------楼层-开始-------------->
+<php>$pid2 = 51330;</php>
+<tpshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and `level` = 1  limit 7" key="key" item='val'>
+    <?php
+    $cat_id_arr = getCatGrandson($val[id]); // 找到某个大类下面的所有子分类id
+    $cat_id_str = implode(',',$cat_id_arr);
+?>
+
+    <div class="layout layer">
+        <div class="ground-flool">
+            <div class="flool-t">
+                <h2><a href="{:U('Home/Goods/goodsList',array('id'=>$val[id]))}">{$val[name]}</a></h2>
+                <tpshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and parent_id = $val[id]" key="key2" item='val2'>
+                    <a href="{:U('Home/Goods/goodsList',array('id'=>$val2[id]))}"><em style="">{$val2[name]}</em></a>
+                </tpshop>
+            </div>
+            <div class="flool-b layer">
+                <ul class="flool-cle">
+                    <php>$pid1 = 51324+$key;</php>
+                    <adv  pid = "$pid1" limit="1" item="v">
+                    <li class="sellers sell_ons">
+                        <div class="best">
+                                <a href="{$v['ad_link']}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+                                <img src="{$v['ad_code']}" width="600" height="350"  title="{$v[title]}" style="{$v[style]}"/>
+                        </div>
+                    </li>
+                    </adv>
+                    <php>$pid2 = $pid2+1;</php>
+
+                    <adv  pid = "$pid2" limit="6" item="v">
+
+                        <li class="sellers sellers2 sell_ons">
+                            <a href="{$v['ad_link']}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+                            <img src="{$v['ad_code']}" width="300" height="355"  title="{$v[title]}" style="{$v[style]}"/>
+                            </a>
+                        </li>
+                    </adv>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</tpshop>
+<!--------楼层-结束-------------->
+
+
+<!--------底部banner-开始-------------->
+<div class="layout layer">
+    <div class="cen-banne">
+        <adv  pid = "4" limit="1" item="v">
+            <a href="{$v['ad_link']}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+            <img src="{$v['ad_code']}" width="1200" height="160" title="{$v[title]}" style="{$v[style]}"/>
+            </tpshop>
+        </adv>
+    </div>
+</div>
+<!--------底部banner-结束-------------->
+
+<!--------footer-开始-------------->
+<include file="public/footer" />
+<!--------footer-结束-------------->
+<script>
+    $(document).ready(function(){
+
+        /* 新闻和公告的 js 切换*/
+        $(".nob2").css("display", "none");
+        $("#not_col").hover(function(){
+            $(".nob1").css("display", "block");
+            $(".nob2").css("display", "none");
+            $(this).css('background-color','#FFF');
+            $("#not_new").css('background-color','#fcf7f7');
+        });
+        /* 新闻和公告的 js 切换*/
+        $("#not_new").hover(function(){
+            $(".nob2").css("display", "block")
+            $(".nob1").css("display", "none");
+            $(this).css('background-color','#FFF');
+            $("#not_col").css('background-color','#fcf7f7');
+        })
+
+    });
+</script>
+
+<script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script>
+    set_first_leader(); //设置推荐人
+    // 如果是手机浏览器跳到手机
+    if(isMobileBrowser())
+        location.href="{:U('Mobile/Index/index')}";
+</script>
+
+</body>
+</html>

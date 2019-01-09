@@ -1,0 +1,120 @@
+<include file="public/layout" />
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>会员咨询管理 - 编辑会员咨询</h3>
+                <h5>网站系统会员咨询管理</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" method="post">
+        <input type="hidden" name="act" value="{$act}">
+        <input type="hidden" name="cid" value="{$info.id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="level_name"><em>*</em>会员昵称</label>
+                <dd class="opt">
+                    <input type="text"  value="{$info.nickname}" id="nickname" class="input-txt" readonly>
+                </dd>
+                </dt>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="level_name"><em>*</em>会员联系手机</label>
+                <dd class="opt">
+                    <input type="text"  value="{$info.phone}" id="phone" class="input-txt" readonly>
+                </dd>
+                </dt>
+            </dl>
+
+            <dl class="row">
+                <dt class="tit">
+                    咨询内容描述
+                </dt>
+                <dd class="opt">
+                    <textarea  name="content" class="tarea" rows="6">{$info.content}</textarea>
+                </dd>
+            </dl>
+            <dl class="row">
+                <volist name="lists" id="list">
+                    <dt class="tit">
+                    </dt>
+                    <dd class="opt">
+                        <textarea  name="" class="tarea" rows="6">{$list.return_content}</textarea>
+                        <p class="notic" style="margin-bottom: 10px">{$list.addtime|date="Y-m-d H:i",###}</p>
+                        <p class="notic" style="margin-bottom: 10px">{$list.end_time|date="Y-m-d H:i",###}</p>
+                    </dd>
+                </volist>
+
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    进展描述
+                </dt>
+                <dd class="opt">
+                    <textarea  name="return_content" class="tarea" rows="6"></textarea>
+                </dd>
+
+                <dt class="tit">
+                   &nbsp;
+                </dt>
+                <dd class="opt">
+                    <div class="flexigrid" style="display: inherit">
+                        <div class="sDiv" style="float: none">
+                            <div class="sDiv2" style="margin-right: 10px;">
+                                <input type="text" size="30" name="end_time" id="end_time" value="" placeholder="下次回访时间" class="qsbox">
+                                <input type="button" class="btn" value="下次回访时间">
+                            </div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="verifyForm()" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // 表格行点击选中切换
+
+        // 点击刷新数据
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+
+        $('#end_time').layDate();
+    });
+    function verifyForm(){
+        $('span.err').show();
+
+        $.ajax({
+            type: "POST",
+            url: "{:U('Admin/User/consultedit')}",
+            data: $('#handleposition').serialize(),
+            dataType: "json",
+            error: function () {
+                layer.alert("服务器繁忙, 请联系管理员!");
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon: 1});
+                    location.href = "{:U('Admin/User/consult')}";
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                    $.each(data.result, function (index, item) {
+                        $('#err_' + index).text(item).show();
+                    });
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<style>
+    #tooltipdiv {
+        position: absolute;
+        border: 1px solid #333;
+        background: white;
+        padding: 3px 3px 3px 3px;
+        color: #333;
+        display: none;
+    }
+
+    .divmatnrdesc{
+        display:inline-block;
+        width:75px;
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+    }
+    .footer_url:hover{
+        text-decoration:underline ;
+        color: red;
+        font-size: 16px;
+    }
+    .footer_url:link{
+        font-size: 15px;
+    }
+</style>
+<div class="footer">
+    <div class="helpful layout">
+    <tpshop sql="select * from `__PREFIX__article_cat` where parent_id =0" key="k" item='v'>
+            <dl <if condition="($k neq 3) AND ($k neq 7)">class="jszc" style=''</if> >
+                <dt>{$v[cat_name]}</dt>
+                <dd>
+                    <ol>
+                    	<tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id] and is_open=1" key="k2" item='v2'>
+                            <li><a  class="divmatnrdesc"  href="{:U('Home/Article/detail',array('article_id'=>$v2[article_id]))}" target="_blank">{$v2[title]}</php></a></li>
+					 	</tpshop>
+                    </ol>
+                </dd>
+            </dl>
+ 	</tpshop>
+
+     </div>
+    <php>$num_arr = M("friend_link")->where("is_show=1")->select();$num = count($num_arr)-1;</php>
+    <div class="helpful layout">
+        <table>
+            <tr>
+                <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+                <td>友情链接:&nbsp&nbsp</td>
+                <tpshop sql="select * from `__PREFIX__friend_link` where is_show=1" key="k2" item='v2'>
+
+                    <td><a class="footer_url" style="margin-left: 10px;margin-right: 10px" href=" {$v2[link_url]}">{$v2[link_name]}</a ><span  <if condition="$k2 eq $num">style="display:none;"</if>>|</span></td>
+                </tpshop>
+            </tr>
+        </table>
+    </div>
+     <div class="keep-on-record">
+        <p>
+        Copyright © 2017 {$tpshop_config['shop_info_store_name']}  版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}
+        </p>
+     </div>
+ </div>
+
+<script>
+
+    $('.divmatnrdesc').on('mouseover', function(e) {
+        _text=$(this).text();
+        _tooltip = "<div id='tooltipdiv'><span style='font-size:11px'> "+_text+"</span></div>";
+        $("body").append(_tooltip);
+        $("#tooltipdiv").show();
+        $("#tooltipdiv")
+            .css({
+                "top": (e.pageY+10) + "px",
+                "left":  (e.pageX +10) + "px"
+            }).show("fast");
+    });
+
+    $('.divmatnrdesc').on('mouseout', function(e) {
+        $("#tooltipdiv").remove();
+    });
+
+
+    $('.divmatnrdesc').on('mousemove', function(e) {
+        $("#tooltipdiv")
+            .css({
+                "top": (e.pageY+10 ) + "px",
+                "left":  (e.pageX+10)  + "px"
+            }).show();
+    });
+</script>
+

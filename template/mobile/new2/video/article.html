@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<include file="public/header" title="视频详情" body=""/>
+<html lang="en" data-dpr="1" style="font-size: 64.6875px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="义乌开公司、义乌公司注册、义乌商标注册、义乌代理记账、义乌股权协议、义乌合伙协议、义乌工商登记、义乌创业服务、义乌个转企、义乌个体工商户注册">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="user-scalable=0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,viewport-fit=cover">
+    <link rel="stylesheet" href="__STATIC__/files/videoList.css">
+    <link rel="stylesheet" href="__STATIC__/files/swiper.css">
+    <script src="__STATIC__/files/jquery-1.12.4.min.js"></script>
+    <script src="__STATIC__/files/640rem.js"></script><meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <script src="__STATIC__/files/swiper.js"></script>
+    <script src="__STATIC__/files/jweixin-1.0.0.js"></script>
+    <style>
+        .videoIntroduce img{
+            display: block;
+            width: 100%;
+        }
+        .recommed h2{
+            font-size: .2rem!important;
+            padding: 0.2rem 0;
+        }
+        .he_sustain{
+            height: 1rem!important;
+        }
+        .classreturn{
+            height: 1rem!important;
+            line-height: 1rem!important;
+            width: 100% !important;
+        }
+        .classreturn .content .menu img{
+            width: .5rem!important;
+            margin-top: .25rem;
+        }
+        .classreturn .content .return a img{
+            width: .3rem!important;
+            margin-top: .2rem;
+        }
+        .footer{
+            height: 1.1rem!important;
+
+        }
+        .footer ul li a .icon .iconfont{
+            font-size: .5rem!important;
+        }
+        .footer ul li a .icon{
+            /*margin-top: 0!important;*/
+        }
+        .footer ul li a .icon p{
+            font-size: .25rem!important;
+            margin-top: .1rem!important;
+        }
+        .similar-product-text{
+            margin-top: 0!important;
+            line-height: normal!important;
+            margin-bottom: 0.1rem!important;
+        }
+        .guesslike .likeshop ul li .similer-product .similar-product-text{
+            font-size: .2rem;
+        }
+        .big-price{
+            font-size: .2rem!important;
+        }
+        .guesslike .likeshop ul li .similer-product .similar-product-text{
+            margin-bottom: 0.1rem!important;
+        }
+        .similar-product-price{
+            height: auto!important;
+            line-height: normal!important;
+        }
+        .recommed{
+            padding: 0 .2rem!important;
+        }
+        footer .flool3{
+            height: .45rem!important;
+            line-height: .45rem!important;
+        }
+        footer .flool3 p{
+            font-size: .23rem!important;
+            line-height: normal!important;
+        }
+        .foohi{
+            height: 1rem!important;
+        }
+        .similar-product-price{
+            height: .3rem!important;
+            line-height: .3rem!important;
+        }
+    </style>
+</head>
+<body style="font-size: 18px;">
+<!-- 视频播放begin -->
+<div class="videoplayBox">
+    <img class="videobg" src="{$myarticle.0.thumb}" alt="视频播放背景图">
+    <video id="video" preload="none" webkit-playsinline="" playsinline="" x5-playsinline="" controls="" autoplay="" src="{$myarticle.0.video_url}">
+    </video>
+    <div class="playBtn">开始播放</div>
+</div>
+<!-- 视频播放end -->
+<!-- 简介-目录begin -->
+<div class="tabbarChange">
+    <span class="on">简介</span>
+    <span>目录</span>
+</div>
+<!-- 简介-目录end -->
+<!-- 视频列表begin -->
+<div class="videoList">
+    <ul class="videoIntroduce" style="margin-top: 0.48rem;padding: 0 0.1rem">
+        <div class="rich_media_content ">
+            {$myarticle.0.content|htmlspecialchars_decode}
+        </div>
+
+        </ul>
+    <ul class="directory">
+        <li class="on" src="{$myarticle.0.video_url}">1</li>
+        <volist name="myarticle" id="item" key="k">
+            <php>$key = $k+1;if($myarticle[$k]['video_url']){</php>
+
+            <li class="" src="{$myarticle[$k]['video_url']}">{$key}</li>
+            <php>}</php>
+        </volist>
+    </ul>
+<!-- 视频列表end -->
+<div class="recommed p" style="padding-bottom: 1.8rem">
+    <h2>为您推荐</h2>
+    <div class="floor guesslike">
+        <div class="likeshop">
+            <ul>
+                <!--商品推荐-->
+                <tpshop sql="SELECT * FROM __PREFIX__goods WHERE ( is_recommend=1 and is_on_sale=1 ) ORDER BY goods_id DESC LIMIT 0,6 " key="k" item='v'>
+                    <li>
+                        <a href="{:U('Goods/goodsInfo',array('id'=>$v[goods_id],'first_leader'=>$_COOKIE['user_id']))}">
+                            <div class="similer-product" style="width: 100%;">
+                                <img src="{$v.goods_id|goods_thum_images=400,400}">
+                                <span class="similar-product-text" style="width: 100%;white-space:nowrap;overflow: hidden;text-overflow:ellipsis;display: block">{$v[goods_name]}</span>
+                                <span class="similar-product-price">
+                                         <if condition="$v['shop_price'] gt 0">
+                                            <span class="big-price"><small>￥</small>{$v[shop_price]}<small>元</small></span>
+                                             <else />
+                                             <span class="big-price"><small>￥</small>预约报价</span>
+                                        </if>
+                                    <!--¥<span class="big-price">{$v[shop_price]}</span>-->
+                                    </span>
+                            </div>
+                        </a>
+                    </li>
+                </tpshop>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 底部begin -->
+
+<include file="public/footer"/>
+<!--底部-end-->
+
+<!--底部导航-start-->
+<include file="public/footer_nav"/>
+<!--底部导航-end-->
+<script>
+
+    $('.playBtn').click(function(){ //视频播放
+
+        $(this).hide();
+
+        $(this).siblings('img').hide();
+
+        $(this).siblings('video').show();
+
+        $(this).siblings('video').get(0).play();
+
+    })
+
+    $('.tabbarChange span').click(function(){ //简介-目录切换
+
+        $(this).addClass('on').siblings('span').removeClass('on');
+
+        var _index = $(this).index();
+
+        $('.videoList ul').eq(_index).show().siblings('ul').hide();
+
+        if(_index == 1){
+
+            $('.Related_sev').hide()
+
+        }else{
+
+            $('.Related_sev').show()
+
+        }
+
+    })
+
+    $('.videoList .videoIntroduce li a').click(function(){ //获取当前播放视频地址
+
+        var _src = $(this).attr("src");
+
+        $('#video').attr("src",_src)
+
+        $('.videoplayBox').find('.playBtn').hide();
+
+        $('.videoplayBox').find('img').hide();
+
+        $('.videoplayBox video').show();
+
+        $('.videoplayBox video').get(0).play();
+
+    })
+
+    $('.videoList .directory li').click(function(){
+
+        $(this).addClass('on').siblings('li').removeClass('on');
+
+        var _src = $(this).attr("src");
+
+        $('#video').attr("src",_src)
+
+        $('.videoplayBox').find('.playBtn').hide();
+
+        $('.videoplayBox').find('img').hide();
+
+        $('.videoplayBox video').show();
+
+        $('.videoplayBox video').get(0).play();
+
+    })
+
+    var tab = $('.tab li');
+
+    var con = $('.Related_sev .con li');
+
+    tab.mouseover(function () {
+
+        $(this).addClass('on').siblings().removeClass('on');
+
+        var index=$(this).index()
+
+        $('.Related_sev .con li').eq(index).show().siblings().hide();
+
+    });
+
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slidesPerGroup: 3,
+        observer:true,//修改swiper自己或子元素时，自动初始化swiper
+        observeParents:true,//修改swiper的父元素时，自动初始化swiper
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+
+</body></html>

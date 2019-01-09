@@ -1,0 +1,19 @@
+﻿h1, h2, h3, h4, h5, em, b { font-weight: normal; }
+/*                
+____头部（head）____
+------------------------------------------*/
+
+.m-head { background-color:#5fbd78; position:relative; }
+.m-head p{font-size:.3rem; text-align:center; padding:.25rem 0;color:#fff; }
+.m-head a.head-goback{ display:block; position:absolute; width:.5rem; left:.2rem;  top:.25rem; text-align:center; font-size:.3rem;color:#fff; }
+.m-head a.head-info{ display:block; position:absolute; width:.5rem; right:.2rem;  top:.25rem; text-align:center; font-size:.3rem;color:#fff; }
+/*                
+____页脚（footer）____
+------------------------------------------*/
+.m-footer {  position:fixed; width:6.4rem; bottom:0;left:50%;margin-left:-3.2rem; background:#fff;z-index:999 }
+.m-footer ul{ overflow:hidden;border-top:1px solid #f2f2f2 }
+.m-footer ul li{ float:left; width:1.6rem;}
+.m-footer ul li a{ display:block; padding:.15rem 0; text-align:center;color:#9f9f9f }
+.m-footer ul li a i{  font-size:.3rem; margin-bottom:.1rem; }
+.m-footer ul li a p{ font-size:.22rem;}
+.m-footer ul li.ahover a{ color:#5fbd78 }
