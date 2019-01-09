@@ -156,7 +156,7 @@ class Api extends Base
             return $this->fetch();
         }
     }
-    //下載
+    //阿里云oss下載
     public function alioss(){
         $downloadName = "/public/download/123.jpg";
        // header('Content-Type: application/octet-stream');
