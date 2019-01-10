@@ -114,6 +114,12 @@
                 </div>
             </div>
         </form>
+        <span class="co666">使用合作账号登录：</span>
+        <tpshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">
+            <if condition="$v['code'] eq 'qq'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'qq'))}"><i class="ba-po&#45;&#45;185"></i></a></span></if>
+            <if condition="$v['code'] eq 'weixin'"><span><a class="hezuoz" href="{:U('LoginApi/login',array('oauth'=>'weixin'))}"><i class="ba-po&#45;&#45;179-23"></i></a></span></if>
+            <if condition="$v['code'] eq 'alipay'"><span><a class="hezuoz" href="{:U('LoginApi/aliLogin',array('oauth'=>'alipay'))}"><i class="zhi-y-f"></i></a></span></if>
+        </tpshop>
         <p class="nu-miaf">没有账号？&nbsp;&nbsp;<a href="{:U('Home/User/reg')}">免费注册</a></p>
         <p class="nu-miaf nu-miah"><label for=""><!-- 继续登录表明您已充分理解并同意以上内容。 --></label></p>
     </div>

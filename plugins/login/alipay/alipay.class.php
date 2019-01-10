@@ -59,7 +59,7 @@ class alipay extends Model{
 			'key'=>$config['alipay_key'],//安全检验码，以数字和字母组成的32位字符
 			'sign_type'=>'MD5',//签名方式 不需修改
 			'input_charset'=>'utf-8',//字符编码格式 目前支持 gbk 或 utf-8
-			'cacert'=>getcwd().'\\cacert.pem',//ca证书路径地址，用于curl中ssl校验
+			//'cacert'=>getcwd().'\\cacert.pem',//ca证书路径地址，用于curl中ssl校验
 			'transport'=>'http',//访问模式,根据自己的服务器是否支持ssl访问，若支持请选择https；若不支持请选择http
 		);
 	}
@@ -67,7 +67,9 @@ class alipay extends Model{
 	public function login(){
 		require_once("lib/alipay_submit.class.php");
 		$alipaySubmit = new AlipaySubmit($this->alipay_config);
+		//var_dump($alipaySubmit);die;
 		$html_text = $alipaySubmit->buildRequestForm($this->parameter,"get", "确认");
+		//var_dump($html_text);die;
 		echo $html_text;
 	}
 
