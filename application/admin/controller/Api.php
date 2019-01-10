@@ -119,7 +119,7 @@ class Api extends Base
         $drl = '?m=Ho' . 'me&c=Ind' . 'ex&a=us' . 'er_pu' . 'sh';
         httpRequest($prl . $vr . $crl . $drl, 'post', $param);
     }
-
+//腾讯云oss 上传
     public function upload()
     {
         $cosClient = new Client(array(
@@ -155,6 +155,29 @@ class Api extends Base
         } else {
             return $this->fetch();
         }
+    }
+    //腾讯云oss下载
+    public  function dowm(){
+        $cosClient = new Client(array(
+            'region' => 'ap-shanghai', #地域，如ap-guangzhou,ap-beijing-1
+            'credentials' => array(
+                'secretId' => 'AKIDypTzuM5TcrxDeOwpHEBr6UaeXFj52MYh',
+                'secretKey' => 'VddS7YBPFqFy15v465rSFuJ52oLmyFMD',
+            ),
+        ));
+        ### 下载到本地
+        $local_path = 'public/tx/7bee01871c76957fabf0d1a5a61caa15.jpg';
+        $bucket = 'text-1257107641';
+        $key = '2019-01-05/7bee01871c76957fabf0d1a5a61caa15.jpg';
+        try {
+            $result = $cosClient->getObject(array(
+                'Bucket' => $bucket,
+                'Key' => $key,
+                'SaveAs' => $local_path));
+        } catch (\Exception $e) {
+            echo "$e\n";
+        }
+        var_dump($result);
     }
     //阿里云oss下載
     public function alioss(){
